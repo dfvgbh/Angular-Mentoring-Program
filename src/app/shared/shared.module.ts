@@ -8,6 +8,15 @@ import { LogoComponent } from './logo/logo.component';
   imports: [
     CommonModule
   ],
-  declarations: [HeaderComponent, FooterComponent, LogoComponent]
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+    LogoComponent
+  ],
+  exports: [
+    HeaderComponent,
+    FooterComponent,
+    LogoComponent
+  ]
 })
 export class SharedModule { }
