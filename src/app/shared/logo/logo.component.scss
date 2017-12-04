@@ -1,13 +1,12 @@
+@import '../../styles/common';
+
 .wrapper {
-  width: 100%;
   height: 200px;
   margin: 10px 30px;
-  box-sizing: border-box;
 }
 
 .container {
   width: 100%;
   height: 100%;
-  box-sizing: border-box;
-  background-color: violet;
+  background-color: $main-violet-color;
 }
