@@ -1,0 +1,14 @@
+@import '../../../styles/common';
+
+.container {
+  @include container;
+  margin: 15px 0;
+}
+
+.add-button {
+  margin-left: auto;
+}
+
+.find-button {
+  margin-left: 8px;
+}
