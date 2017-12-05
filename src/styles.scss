@@ -1,1 +1,9 @@
 @import '~normalize.css/normalize';
+@import './app/styles/common';
+
+body {
+  position: relative;
+  height: 100%;
+  font-family: Verdana, serif;
+  background-color: $primary-bg-color;
+}

@@ -1,0 +1,20 @@
+@import 'constants';
+
+@mixin container {
+  padding: $container-padding;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+@mixin button-bg($bg) {
+  background: $bg;
+  &:hover {
+    background:darken($bg, 8%);
+    transition: all 0.3s ease;
+  }
+  &:active {
+    background:darken($bg, 25%);
+  }
+}

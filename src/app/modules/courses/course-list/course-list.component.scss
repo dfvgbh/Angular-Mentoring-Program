@@ -1,0 +1,10 @@
+@import '../../../styles/common';
+
+.wrapper {
+  margin: 20px 0 50px;
+}
+
+.container {
+  @include container;
+  flex-direction: column;
+}

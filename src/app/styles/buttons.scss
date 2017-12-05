@@ -1,0 +1,31 @@
+@import 'constants';
+@import 'mixins';
+
+.btn {
+  font-weight: bold;
+  text-decoration: none;
+  padding: 7px 12px;
+  border-radius: 3px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn-green {
+  @include button-bg($green-color);
+  color: $text-color;
+}
+
+.btn-violet {
+  @include button-bg($violet-color);
+  color: $text-light-color;
+}
+
+.btn-yellow{
+  @include button-bg($yellow-color);
+  color: $text-color;
+}
+
+.btn-red {
+  @include button-bg($red-color);
+  color: $text-light-color;
+}
