@@ -1,10 +1,11 @@
 @import '../../styles/common';
 
 .wrapper {
-  height: 50px;
-  width: 100%;
-  bottom: 0;
+  height: $footer-height;
   position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .container {

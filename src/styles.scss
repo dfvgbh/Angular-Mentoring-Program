@@ -1,9 +1,13 @@
 @import '~normalize.css/normalize';
 @import './app/styles/common';
 
+html {
+  height: 100%;
+}
+
 body {
   position: relative;
-  height: 100%;
+  min-height:100%;
   font-family: Verdana, serif;
   background-color: $primary-bg-color;
 }

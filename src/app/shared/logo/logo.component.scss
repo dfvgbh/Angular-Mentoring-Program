@@ -6,13 +6,14 @@
 
 .container {
   @include container;
-  align-items: center;
   color: $text-light-color;
+  padding-top: 25px;
+  padding-bottom: 25px;
   background-color: $violet-color;
 }
 
 .logo {
-  width: 140px;
+  height: 70px;
 
   &-image {
     max-width: 100%;
@@ -20,9 +21,13 @@
   }
 }
 
+.heading {
+  margin-left: 20px;
+}
+
 .title {
   text-transform: uppercase;
-  margin-left: 20px;
+  margin: 0;
 }
 
 .account {
