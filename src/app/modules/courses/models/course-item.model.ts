@@ -1,14 +1,20 @@
-import { Course } from './';
+import { Course } from './course.model';
 
 export class CourseItem implements Course {
+  private _id: number;
+  private _title: string;
   private _addedDate: Date;
+  private _duration: number;
+  private _description: string;
 
-  constructor(private _id: number,
-              private _title: string,
-              addedDate: string,
-              private _duration: number,
-              private _description: string) {
-    this._addedDate = new Date(addedDate);
+  constructor(course: Course) {
+    ({
+      id: this._id,
+      title: this._title,
+      addedDate: this._addedDate,
+      duration: this._duration,
+      description: this._description
+    } = course);
   }
 
   get addedDate(): Date {

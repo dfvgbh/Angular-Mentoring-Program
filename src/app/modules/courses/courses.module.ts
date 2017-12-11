@@ -8,7 +8,16 @@ import { CoursesComponent } from './courses.component';
 import { SharedModule } from '../../shared/shared.module';
 import { ToolboxComponent } from './toolbox/toolbox.component';
 
+import * as services from './services';
+
+function toArray(obj) {
+  return Object.keys(obj).map(key => obj[key]);
+}
+
 @NgModule({
+  providers: [
+    ...toArray(services)
+  ],
   imports: [
     CommonModule,
     SharedModule,

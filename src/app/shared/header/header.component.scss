@@ -1,0 +1,26 @@
+@import '../../styles/common';
+
+.wrapper {
+  height: 120px;
+}
+
+.container {
+  @include container;
+  color: $text-light-color;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  background-color: $violet-color;
+}
+
+.heading {
+  margin-left: 20px;
+}
+
+.title {
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.account {
+  margin-left: auto;
+}

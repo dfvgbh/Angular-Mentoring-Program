@@ -2,7 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { CoreModule } from './core/core.module';
 import { CoursesModule } from './modules/courses/courses.module';
+import { AuthenticationModule } from './modules/authentication/authentication.module';
 
 @NgModule({
   declarations: [
@@ -10,7 +12,9 @@ import { CoursesModule } from './modules/courses/courses.module';
   ],
   imports: [
     BrowserModule,
-    CoursesModule
+    CoreModule,
+    CoursesModule,
+    AuthenticationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

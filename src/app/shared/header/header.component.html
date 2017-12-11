@@ -1,3 +1,22 @@
-<p>
-  header works!
-</p>
+<div class="wrapper">
+  <div class="container">
+    <amp-logo></amp-logo>
+    <div class="heading">
+      <h1 class="title">Courses</h1>
+      <div
+        class="breadcrumbs"
+        *ngIf="isAuthenticated()"
+      >...>...>...></div>
+    </div>
+    <div
+      class="account"
+      *ngIf="isAuthenticated()"
+    >
+      <div class="username">{{getUserInfo()}}</div>
+      <a
+        class="logout"
+        (click)="logout()"
+      >Logout(Clickable)</a>
+    </div>
+  </div>
+</div>

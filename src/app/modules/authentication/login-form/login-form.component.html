@@ -1,0 +1,28 @@
+<div class="wrapper">
+  <div class="container">
+    <div class="row">
+      <label>
+        Username
+        <input
+          [(ngModel)]="username"
+          type="text"
+        >
+      </label>
+    </div>
+    <div class="row">
+      <label>
+        Password
+        <input
+          [(ngModel)]="password"
+          type="password"
+        >
+      </label>
+    </div>
+    <div class="row">
+      <a
+        class="login-bth btn btn-violet"
+        (click)="login()"
+      >Login</a>
+    </div>
+  </div>
+</div>
