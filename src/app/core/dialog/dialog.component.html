@@ -1,0 +1,18 @@
+<div
+  class="layout"
+  *ngIf="isShown()"
+>
+  <div class="container">
+    <div class="title">{{ title }}</div>
+    <div class="actions">
+      <a
+        class="action-btn btn btn-violet"
+        (click)="decline()"
+      >Cancel</a>
+      <a
+        class="action-btn btn btn-violet"
+        (click)="accept()"
+      >Ok</a>
+    </div>
+  </div>
+</div>

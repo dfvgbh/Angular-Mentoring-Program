@@ -1,0 +1,42 @@
+@import '../../styles/common';
+
+.layout {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, .85);
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(200px + 10%);
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  color: $text-light-color;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.7rem;
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  margin-top: 40px;
+  justify-content: space-around;
+}
+
+.action-btn {
+  text-transform: uppercase;
+  width: 100px;
+  height: 30px;
+  line-height: 30px;
+}
