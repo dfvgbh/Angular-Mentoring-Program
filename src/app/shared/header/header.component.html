@@ -12,7 +12,7 @@
       class="account"
       *ngIf="isAuthenticated()"
     >
-      <div class="username">{{getUserInfo()}}</div>
+      <div class="username">{{ getUserInfo() }}</div>
       <a
         class="logout"
         (click)="logout()"
