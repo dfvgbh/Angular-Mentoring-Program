@@ -2,6 +2,7 @@ import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import * as services from './services';
+import { DialogComponent } from './dialog/dialog.component';
 
 function toArray(obj) {
   return Object.keys(obj).map(key => obj[key]);
@@ -11,7 +12,13 @@ function toArray(obj) {
   imports: [
     CommonModule
   ],
-  providers: [...toArray(services)]
+  providers: [...toArray(services)],
+  declarations: [
+    DialogComponent
+  ],
+  exports: [
+    DialogComponent
+  ]
 })
 export class CoreModule {
   constructor (@Optional() @SkipSelf() parentModule: CoreModule) {

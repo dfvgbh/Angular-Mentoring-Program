@@ -4,6 +4,7 @@ import 'rxjs/add/operator/takeUntil';
 
 import { CourseItem } from '../models';
 import { CoursesService } from '../services';
+import { DialogService } from '../../../core/services';
 
 @Component({
   selector: 'amp-course-list',
@@ -15,7 +16,8 @@ export class CourseListComponent implements OnDestroy, OnInit {
 
   private ngUnsubscribe = new Subject();
 
-  constructor(private coursesService: CoursesService) {
+  constructor(private coursesService: CoursesService,
+              private dialogService: DialogService) {
     this.courses = [];
   }
 
@@ -31,7 +33,11 @@ export class CourseListComponent implements OnDestroy, OnInit {
   }
 
   onRemoveItem(courseItem: CourseItem) {
-    this.coursesService.removeCourse(courseItem.id);
-    console.log(`DELETING: course with ID: ${courseItem.id}`);
+    this.dialogService.show()
+      .then(() => {
+        this.coursesService.removeCourse(courseItem.id);
+        console.log(`DELETING: course with ID: ${courseItem.id}`);
+      })
+      .catch(() => {});
   }
 }
