@@ -3,16 +3,16 @@
   *ngIf="isShown()"
 >
   <div class="container">
-    <div class="title">{{ title }}</div>
+    <div class="title">{{ getDialogConfig().title }}</div>
     <div class="actions">
       <a
         class="action-btn btn btn-violet"
         (click)="decline()"
-      >Cancel</a>
+      >{{ getDialogConfig().actions.decline }}</a>
       <a
         class="action-btn btn btn-violet"
         (click)="accept()"
-      >Ok</a>
+      >{{ getDialogConfig().actions.accept }}</a>
     </div>
   </div>
 </div>

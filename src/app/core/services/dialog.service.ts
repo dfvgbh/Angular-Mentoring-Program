@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 
+import { DialogConfig } from '../models';
+
 @Injectable()
 export class DialogService {
   private isDialogShown = false;
   private onResolve;
   private onReject;
+  private dialogConfig: DialogConfig;
 
   constructor() { }
 
@@ -12,11 +15,13 @@ export class DialogService {
     return this.isDialogShown;
   }
 
-  show(): Promise<any> {
+  show(dialogConfig: DialogConfig): Promise<any> {
     if (this.isDialogShown) {
       return;
     }
     this.isDialogShown = true;
+    this.dialogConfig = dialogConfig;
+
     return new Promise((resolve, reject) => {
       this.onResolve = resolve;
       this.onReject = reject;
@@ -31,6 +36,10 @@ export class DialogService {
   accept(): void {
     this.onResolve();
     this.reset();
+  }
+
+  getDialogConfig(): DialogConfig {
+    return this.dialogConfig;
   }
 
   private reset(): void {

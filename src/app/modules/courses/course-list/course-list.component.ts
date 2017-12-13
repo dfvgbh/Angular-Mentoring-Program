@@ -5,6 +5,15 @@ import 'rxjs/add/operator/takeUntil';
 import { CourseItem } from '../models';
 import { CoursesService } from '../services';
 import { DialogService } from '../../../core/services';
+import { DialogConfig } from '../../../core/models';
+
+export const REMOVE_COURSE_DIALOG_CONFIG: DialogConfig = {
+  title: 'Do you really want to delete this course?',
+  actions: {
+    accept: 'Ok',
+    decline: 'Cancel'
+  }
+};
 
 @Component({
   selector: 'amp-course-list',
@@ -33,7 +42,7 @@ export class CourseListComponent implements OnDestroy, OnInit {
   }
 
   onRemoveItem(courseItem: CourseItem) {
-    this.dialogService.show()
+    this.dialogService.show(REMOVE_COURSE_DIALOG_CONFIG)
       .then(() => {
         this.coursesService.removeCourse(courseItem.id);
         console.log(`DELETING: course with ID: ${courseItem.id}`);

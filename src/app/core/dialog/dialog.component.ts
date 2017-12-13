@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { DialogService } from '../services';
+import { DialogConfig } from '../models';
 
 @Component({
   selector: 'amp-dialog',
@@ -23,5 +24,9 @@ export class DialogComponent {
 
   decline(): void {
     this.dialogService.decline();
+  }
+
+  getDialogConfig(): DialogConfig {
+    return this.dialogService.getDialogConfig();
   }
 }
