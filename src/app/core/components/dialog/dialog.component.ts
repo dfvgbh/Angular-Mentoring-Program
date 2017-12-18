@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { DialogService } from '../services';
-import { DialogConfig } from '../models';
+import { DialogService } from '../../services';
+import { DialogConfig } from '../../models';
 
 @Component({
   selector: 'amp-dialog',

@@ -2,7 +2,7 @@ import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import * as services from './services';
-import { DialogComponent } from './dialog/dialog.component';
+import * as components from './components';
 
 function toArray(obj) {
   return Object.keys(obj).map(key => obj[key]);
@@ -13,11 +13,9 @@ function toArray(obj) {
     CommonModule
   ],
   providers: [...toArray(services)],
-  declarations: [
-    DialogComponent
-  ],
+  declarations: [...toArray(components)],
   exports: [
-    DialogComponent
+    components.DialogComponent
   ]
 })
 export class CoreModule {

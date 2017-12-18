@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { AuthenticationService } from '../../core/services';
+import { AuthenticationService } from '../../../core/services';
 
 @Component({
   selector: 'amp-header',
