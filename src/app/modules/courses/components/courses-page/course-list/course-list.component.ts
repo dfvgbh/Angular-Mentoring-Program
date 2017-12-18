@@ -2,18 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 
-import { CourseItem } from '../models';
-import { CoursesService } from '../services';
-import { DialogService } from '../../../core/services';
-import { DialogConfig } from '../../../core/models';
+import { CourseItem } from '../../../models';
+import { CoursesService } from '../../../services';
+import { DialogService } from '../../../../../core/services';
+import { DialogConfig } from '../../../../../core/models';
 
-export const REMOVE_COURSE_DIALOG_CONFIG: DialogConfig = {
-  title: 'Do you really want to delete this course?',
-  actions: {
-    accept: 'Ok',
-    decline: 'Cancel'
-  }
-};
 
 @Component({
   selector: 'amp-course-list',
@@ -22,6 +15,13 @@ export const REMOVE_COURSE_DIALOG_CONFIG: DialogConfig = {
 })
 export class CourseListComponent implements OnDestroy, OnInit {
   courses: CourseItem[];
+  private readonly REMOVE_COURSE_DIALOG_CONFIG: DialogConfig = {
+    title: 'Do you really want to delete this course?',
+    actions: {
+      accept: 'Ok',
+      decline: 'Cancel'
+    }
+  };
 
   private ngUnsubscribe = new Subject();
 
@@ -42,7 +42,7 @@ export class CourseListComponent implements OnDestroy, OnInit {
   }
 
   onRemoveItem(courseItem: CourseItem) {
-    this.dialogService.show(REMOVE_COURSE_DIALOG_CONFIG)
+    this.dialogService.show(this.REMOVE_COURSE_DIALOG_CONFIG)
       .then(() => {
         this.coursesService.removeCourse(courseItem.id);
         console.log(`DELETING: course with ID: ${courseItem.id}`);

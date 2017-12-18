@@ -3,8 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { SharedModule } from '../../shared/shared.module';
-import { AuthenticationComponent } from './authentication.component';
-import { LoginFormComponent } from './login-form/login-form.component';
+
+import * as components from './components';
+
+function toArray(obj) {
+  return Object.keys(obj).map(key => obj[key]);
+}
 
 @NgModule({
   imports: [
@@ -12,12 +16,9 @@ import { LoginFormComponent } from './login-form/login-form.component';
     FormsModule,
     SharedModule
   ],
-  declarations: [
-    AuthenticationComponent,
-    LoginFormComponent
-  ],
+  declarations: [ ...toArray(components) ],
   exports: [
-    AuthenticationComponent
+    components.LoginPageComponent
   ]
 })
 export class AuthenticationModule { }

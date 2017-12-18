@@ -16,5 +16,4 @@ export class ToolboxComponent implements OnInit {
   find() {
     console.log(`FIND: ${this.searchQuery}`);
   }
-
 }
