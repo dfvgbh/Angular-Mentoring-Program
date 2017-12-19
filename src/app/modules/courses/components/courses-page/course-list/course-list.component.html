@@ -1,8 +1,14 @@
+<amp-toolbox (searchItem)="onSearchItem($event)"></amp-toolbox>
 <div class="wrapper">
   <div class="container">
-    <amp-course-item *ngFor="let course of courses"
-                     [courseItem]="course"
-                     (removeItem)="onRemoveItem($event)">
-    </amp-course-item>
+    <ng-container *ngIf="courses?.length !== 0; else noCourses">
+      <amp-course-item *ngFor="let course of courses | orderBy:'addedDate'"
+                       [courseItem]="course"
+                       (removeItem)="onRemoveItem($event)">
+      </amp-course-item>
+    </ng-container>
+    <ng-template #noCourses>
+      <amp-no-courses></amp-no-courses>
+    </ng-template>
   </div>
 </div>

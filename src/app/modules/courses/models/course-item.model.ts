@@ -6,6 +6,7 @@ export class CourseItem implements Course {
   private _addedDate: Date;
   private _duration: number;
   private _description: string;
+  private _topRated: boolean;
 
   constructor(course: Course) {
     ({
@@ -13,7 +14,8 @@ export class CourseItem implements Course {
       title: this._title,
       addedDate: this._addedDate,
       duration: this._duration,
-      description: this._description
+      description: this._description,
+      topRated: this._topRated
     } = course);
   }
 
@@ -55,5 +57,13 @@ export class CourseItem implements Course {
 
   public set description(value: string) {
     this._description = value;
+  }
+
+  public get topRated(): boolean {
+    return this._topRated;
+  }
+
+  public set topRated(value: boolean) {
+    this._topRated = value;
   }
 }

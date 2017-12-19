@@ -1,8 +1,9 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import * as services from './services';
 import * as components from './components';
+import * as pipes from './pipes';
+import * as services from './services';
 
 function toArray(obj) {
   return Object.keys(obj).map(key => obj[key]);
@@ -12,7 +13,10 @@ function toArray(obj) {
   imports: [
     CommonModule
   ],
-  providers: [...toArray(services)],
+  providers: [
+    ...toArray(services),
+    pipes.FilterByPipe
+  ],
   declarations: [...toArray(components)],
   exports: [
     components.DialogComponent

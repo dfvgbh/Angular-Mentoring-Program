@@ -4,8 +4,10 @@ import { FormsModule } from '@angular/forms';
 
 import { SharedModule } from '../../shared/shared.module';
 
-import * as services from './services';
 import * as components from './components';
+import * as directives from './directives';
+import * as services from './services';
+import { NoCoursesComponent } from './components/courses-page/course-list/no-courses/no-courses.component';
 
 function toArray(obj) {
   return Object.keys(obj).map(key => obj[key]);
@@ -18,7 +20,11 @@ function toArray(obj) {
     SharedModule,
     FormsModule
   ],
-  declarations: [ ...toArray(components) ],
+  declarations: [
+    ...toArray(components),
+    ...toArray(directives),
+    NoCoursesComponent,
+  ],
   exports: [
     components.CoursesPageComponent
   ]

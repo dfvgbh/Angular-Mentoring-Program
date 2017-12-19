@@ -1,30 +1,34 @@
 export const courses = [
   {
     id: 1,
-    title: 'Course name',
-    addedDate: '2011-11-11',
-    duration: 123,
-    description: 'Lorem ipsum dolorem Lorem ipsum dolorem Lorem ipsum dolorem Lorem ipsum dolorem Lorem ipsum dolorem Lorem ipsum dolorem '
+    title: 'Telekinesis',
+    addedDate: '2017-12-18',
+    duration: 59,
+    description: 'Lorem ipsum dolorem Lorem ipsum dolorem Lorem ipsum dolorem Lorem ipsum dolorem Lorem ipsum dolorem Lorem ipsum dolorem',
+    topRated: true
   },
   {
     id: 2,
-    title: 'Course name',
-    addedDate: '2011-11-11',
-    duration: 123,
-    description: 'Descrption'
+    title: 'Lighting swords',
+    addedDate: '2021-11-11',
+    duration: 60,
+    description: 'Descrption',
+    topRated: false
   },
   {
     id: 3,
-    title: 'Course name',
-    addedDate: '2011-11-11',
+    title: 'How to become a good father?',
+    addedDate: '2017-12-19',
     duration: 123,
-    description: 'Descrption'
+    description: 'Descrption',
+    topRated: true
   },
   {
     id: 4,
-    title: 'Course name',
+    title: 'Spoilers',
     addedDate: '2011-11-11',
-    duration: 123,
-    description: 'Descrption'
+    duration: 352,
+    description: 'Descrption',
+    topRated: false
   }
 ];

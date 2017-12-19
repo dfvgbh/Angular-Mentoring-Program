@@ -1,13 +1,16 @@
 @import '../../../../../../styles/common';
 
 .container {
-  border: solid $violet-color 2px;
   margin: 15px 0;
   padding: 9px 15px;
   display: flex;
-  background-color: $white-color;
+  background-color: $light-grey-color;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+
+  &_top-rated {
+    background-color: $white-color;
+  }
 
   &:hover {
     box-shadow: 0 8px 16px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
@@ -63,4 +66,8 @@
       margin-bottom: 0;
     }
   }
+}
+
+.fa-star {
+  color: $yellow-color;
 }

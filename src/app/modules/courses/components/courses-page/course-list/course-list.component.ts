@@ -6,7 +6,7 @@ import { CourseItem } from '../../../models';
 import { CoursesService } from '../../../services';
 import { DialogService } from '../../../../../core/services';
 import { DialogConfig } from '../../../../../core/models';
-
+import { FilterByPipe } from '../../../../../core/pipes';
 
 @Component({
   selector: 'amp-course-list',
@@ -15,6 +15,7 @@ import { DialogConfig } from '../../../../../core/models';
 })
 export class CourseListComponent implements OnDestroy, OnInit {
   courses: CourseItem[];
+
   private readonly REMOVE_COURSE_DIALOG_CONFIG: DialogConfig = {
     title: 'Do you really want to delete this course?',
     actions: {
@@ -26,7 +27,8 @@ export class CourseListComponent implements OnDestroy, OnInit {
   private ngUnsubscribe = new Subject();
 
   constructor(private coursesService: CoursesService,
-              private dialogService: DialogService) {
+              private dialogService: DialogService,
+              private filterByPipe: FilterByPipe) {
     this.courses = [];
   }
 
@@ -48,5 +50,9 @@ export class CourseListComponent implements OnDestroy, OnInit {
         console.log(`DELETING: course with ID: ${courseItem.id}`);
       })
       .catch(() => {});
+  }
+
+  onSearchItem(searchQuery: string) {
+    this.courses = this.filterByPipe.transform(this.courses, 'title', searchQuery);
   }
 }
