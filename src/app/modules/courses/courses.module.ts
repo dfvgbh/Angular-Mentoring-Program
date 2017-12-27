@@ -9,8 +9,8 @@ import * as directives from './directives';
 import * as services from './services';
 import { NoCoursesComponent } from './components/courses-page/course-list/no-courses/no-courses.component';
 
-function toArray(obj) {
-  return Object.keys(obj).map(key => obj[key]);
+export function toArray(obj) {
+  return Object.values(obj);
 }
 
 @NgModule({

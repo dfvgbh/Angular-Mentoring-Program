@@ -3,18 +3,20 @@ import { Injectable } from '@angular/core';
 import { courses } from './courses.mock';
 import { CourseItem } from '../models';
 import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class CoursesService {
   private courses: CourseItem[];
+  private coursesSubject: BehaviorSubject<CourseItem[]>;
 
   constructor() {
     this.initializeCourses();
+    this.coursesSubject = new BehaviorSubject(this.courses);
   }
 
   getCourses(): Observable<CourseItem[]> {
-    return of(this.courses);
+    return this.coursesSubject;
   }
 
   createCourse(course: CourseItem): void {
@@ -35,7 +37,9 @@ export class CoursesService {
     if (index === -1) {
       return;
     }
-    this.courses.splice(index, 1);
+    this.courses = [...this.courses.slice(0, index),
+      ...this.courses.slice(index + 1, this.courses.length)];
+    this.coursesSubject.next(this.courses);
   }
 
   private initializeCourses(): void {

@@ -5,8 +5,8 @@ import * as components from './components';
 import * as pipes from './pipes';
 import * as services from './services';
 
-function toArray(obj) {
-  return Object.keys(obj).map(key => obj[key]);
+export function toArray(obj) {
+  return Object.values(obj);
 }
 
 @NgModule({

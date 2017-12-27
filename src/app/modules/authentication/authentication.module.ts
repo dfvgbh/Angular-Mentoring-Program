@@ -6,8 +6,8 @@ import { SharedModule } from '../../shared/shared.module';
 
 import * as components from './components';
 
-function toArray(obj) {
-  return Object.keys(obj).map(key => obj[key]);
+export function toArray(obj) {
+  return Object.values(obj);
 }
 
 @NgModule({

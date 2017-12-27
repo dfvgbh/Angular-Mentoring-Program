@@ -23,7 +23,6 @@ export class CourseListComponent implements OnDestroy, OnInit {
       decline: 'Cancel'
     }
   };
-
   private ngUnsubscribe = new Subject();
 
   constructor(private coursesService: CoursesService,
