@@ -33,12 +33,7 @@ export class CoursesService {
   }
 
   removeCourse(id: number): void {
-    const index = this.courses.findIndex(course => course.id === id);
-    if (index === -1) {
-      return;
-    }
-    this.courses = [...this.courses.slice(0, index),
-      ...this.courses.slice(index + 1, this.courses.length)];
+    this.courses = this.courses.filter(course => course.id !== id);
     this.coursesSubject.next(this.courses);
   }
 
