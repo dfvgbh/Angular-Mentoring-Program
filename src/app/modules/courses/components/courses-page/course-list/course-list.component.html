@@ -2,7 +2,7 @@
 <div class="wrapper">
   <div class="container">
     <ng-container *ngIf="courses?.length !== 0; else noCourses">
-      <amp-course-item *ngFor="let course of courses | orderBy:'addedDate'"
+      <amp-course-item *ngFor="let course of courses | orderBy: 'addedDate'"
                        [courseItem]="course"
                        (removeItem)="onRemoveItem($event)">
       </amp-course-item>
