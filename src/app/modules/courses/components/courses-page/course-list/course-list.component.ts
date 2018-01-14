@@ -32,6 +32,7 @@ export class CourseListComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
+    this.coursesService.updateCourses();
     this.coursesService.getCourses()
       .takeUntil(this.ngUnsubscribe)
       .subscribe(courses => this.courses = courses);
