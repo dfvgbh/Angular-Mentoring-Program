@@ -7,7 +7,7 @@ import { SharedModule } from '../../shared/shared.module';
 import * as components from './components';
 import * as directives from './directives';
 import * as services from './services';
-import { NoCoursesComponent } from './components/courses-page/course-list/no-courses/no-courses.component';
+import { AddCourseFormComponent } from './components/add-course-page/add-course-form/add-course-form.component';
 
 export function toArray(obj) {
   return Object.values(obj);
@@ -23,10 +23,11 @@ export function toArray(obj) {
   declarations: [
     ...toArray(components),
     ...toArray(directives),
-    NoCoursesComponent,
+    AddCourseFormComponent
   ],
   exports: [
-    components.CoursesPageComponent
+    components.CoursesPageComponent,
+    components.AddCoursePageComponent
   ]
 })
 export class CoursesModule { }

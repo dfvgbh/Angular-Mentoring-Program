@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuthenticationService {
+  private userInfoSubject: BehaviorSubject<string>;
 
-  constructor() { }
+  constructor() {
+    this.userInfoSubject = new BehaviorSubject(this.getUserInfo());
+  }
 
   login(username: string, password: string): void {
     this.log('Logging in...');
@@ -12,12 +17,16 @@ export class AuthenticationService {
     }
     localStorage.setItem('username', username);
     localStorage.setItem('token', this.getToken(username));
+
+    this.broadcastUserInfo();
   }
 
   logout(): void {
     this.log('Logging out...');
     localStorage.removeItem('username');
     localStorage.removeItem('token');
+
+    this.broadcastUserInfo();
   }
 
   isAuthenticated(): boolean {
@@ -25,7 +34,15 @@ export class AuthenticationService {
       localStorage.getItem('token'));
   }
 
-  getUserInfo(): string {
+  getUserInfo$(): Observable<string> {
+    return this.userInfoSubject.asObservable();
+  }
+
+  private broadcastUserInfo() {
+    this.userInfoSubject.next(this.getUserInfo());
+  }
+
+  private getUserInfo(): string {
     return localStorage.getItem('username');
   }
 

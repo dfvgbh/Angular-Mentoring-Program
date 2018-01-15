@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/toArray';
+import 'rxjs/add/operator/filter';
 import { from } from 'rxjs/observable/from';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { courses } from './courses.mock';
@@ -13,14 +14,15 @@ import { courses } from './courses.mock';
 export class CoursesService {
   private courses = courses;
   private coursesSubject = new BehaviorSubject<CourseItem[]>([]);
+  private TWO_WEEKS = 14 * 24 * 3600 * 1000;
 
   constructor() {  }
 
-  getCourses(): Observable<CourseItem[]> {
+  getCourses$(): Observable<CourseItem[]> {
     return this.coursesSubject.asObservable();
   }
 
-  updateCourses(): void {
+  reloadCourses(): void {
     this.fetchCourses().subscribe(value => {
       this.coursesSubject.next(value);
     });
@@ -41,15 +43,21 @@ export class CoursesService {
   //
   removeCourse(id: number): void {
     this.courses = this.courses.filter(course => course.id !== id);
-    this.updateCourses();
+    this.reloadCourses();
   }
 
   private fetchCourses(): Observable<CourseItem[]> {
     return from(this.courses)
       .map((o: any) => new CourseItem({
         ...o,
-        addedDate: o.addedDate
+        addedDate: new Date(o.addedDate)
       }))
+      .filter((course: CourseItem) => this.filterOutdated(course, this.TWO_WEEKS))
       .toArray();
+  }
+
+  private filterOutdated(course: CourseItem, howOld: number): boolean {
+    const currentDate = new Date();
+    return +course.addedDate > +currentDate - howOld;
   }
 }

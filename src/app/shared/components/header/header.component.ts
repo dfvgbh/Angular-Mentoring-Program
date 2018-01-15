@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { AuthenticationService } from '../../../core/services';
 
@@ -7,9 +7,17 @@ import { AuthenticationService } from '../../../core/services';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+  private userInfo: string;
 
   constructor(private authenticationService: AuthenticationService) {
+  }
+
+  ngOnInit() {
+    this.authenticationService.getUserInfo$()
+      .subscribe(
+        userInfo => this.userInfo = userInfo
+      );
   }
 
   logout(): void {
@@ -18,10 +26,6 @@ export class HeaderComponent {
 
   isAuthenticated(): boolean {
     return this.authenticationService.isAuthenticated();
-  }
-
-  getUserInfo(): string {
-    return this.authenticationService.getUserInfo();
   }
 
 }
