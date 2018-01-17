@@ -2,20 +2,20 @@ import { Course } from './course.model';
 
 export class CourseItem implements Course {
   private _id: number;
-  private _title: string;
+  private _name: string;
   private _addedDate: Date;
   private _duration: number;
   private _description: string;
-  private _topRated: boolean;
+  private _isTopRated: boolean;
 
   constructor(course: Course) {
     ({
       id: this._id,
-      title: this._title,
+      name: this._name,
       addedDate: this._addedDate,
       duration: this._duration,
       description: this._description,
-      topRated: this._topRated
+      isTopRated: this._isTopRated
     } = course);
   }
 
@@ -35,12 +35,12 @@ export class CourseItem implements Course {
     this._id = value;
   }
 
-  public get title(): string {
-    return this._title;
+  public get name(): string {
+    return this._name;
   }
 
-  public set title(value: string) {
-    this._title = value;
+  public set name(value: string) {
+    this._name = value;
   }
 
   public get duration(): number {
@@ -59,11 +59,11 @@ export class CourseItem implements Course {
     this._description = value;
   }
 
-  public get topRated(): boolean {
-    return this._topRated;
+  public get isTopRated(): boolean {
+    return this._isTopRated;
   }
 
-  public set topRated(value: boolean) {
-    this._topRated = value;
+  public set isTopRated(value: boolean) {
+    this._isTopRated = value;
   }
 }

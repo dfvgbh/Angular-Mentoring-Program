@@ -41,7 +41,12 @@
     font-weight: bold;
   }
 
+  &-duration {
+    min-width: 90px;
+  }
+
   &-added-date {
+    min-width: 120px;
     margin-left: auto;
     font-weight: bold;
   }

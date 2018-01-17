@@ -23,7 +23,7 @@ export class CourseListComponent implements OnDestroy, OnInit {
       decline: 'Cancel'
     }
   };
-  private ngUnsubscribe = new Subject();
+  private unsubscribe$ = new Subject();
 
   constructor(private coursesService: CoursesService,
               private dialogService: DialogService,
@@ -34,13 +34,13 @@ export class CourseListComponent implements OnDestroy, OnInit {
   ngOnInit() {
     this.coursesService.reloadCourses();
     this.coursesService.getCourses$()
-      .takeUntil(this.ngUnsubscribe)
+      .takeUntil(this.unsubscribe$)
       .subscribe(courses => this.courses = courses);
   }
 
   ngOnDestroy() {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   onRemoveItem(courseItem: CourseItem) {

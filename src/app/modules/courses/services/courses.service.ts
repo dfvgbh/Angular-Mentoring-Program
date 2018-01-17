@@ -1,22 +1,25 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
-import { CourseItem } from '../models';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { from } from 'rxjs/observable/from';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/toArray';
 import 'rxjs/add/operator/filter';
-import { from } from 'rxjs/observable/from';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { courses } from './courses.mock';
+import 'rxjs/add/operator/mergeMap';
+
+import { CourseItem } from '../models';
+import { CoursesHttpParams } from '../models/courses-http-params.model';
 
 @Injectable()
 export class CoursesService {
-  private courses = courses;
   private coursesSubject = new BehaviorSubject<CourseItem[]>([]);
+  private getCoursesHttpParams = new HttpParams();
   private TWO_WEEKS = 14 * 24 * 3600 * 1000;
 
-  constructor() {  }
+  constructor(private http: HttpClient) {  }
 
   getCourses$(): Observable<CourseItem[]> {
     return this.coursesSubject.asObservable();
@@ -28,31 +31,32 @@ export class CoursesService {
     });
   }
 
-  // createCourse(course: CourseItem): void {
-  //   this.courses.push(course);
-  // }
-  //
-  // getCourseById(id: number): CourseItem | undefined {
-  //   return this.courses.find(course => course.id === id);
-  // }
-  //
-  // updateCourse(course: CourseItem): void {
-  //   const origCourse = this.getCourseById(course.id);
-  //   Object.assign(origCourse, course);
-  // }
-  //
   removeCourse(id: number): void {
-    this.courses = this.courses.filter(course => course.id !== id);
-    this.reloadCourses();
+    const options: object = {
+      params: new HttpParams().set('id', id.toString()),
+      responseType: 'text'
+    };
+
+    this.http.delete('http://localhost:3000/courses', options)
+      .subscribe(
+        () => this.reloadCourses(),
+        err => console.log(err)
+      );
+  }
+
+  setCoursesHttpParams(params: CoursesHttpParams) {
+    Object.keys(params)
+      .forEach(key => this.getCoursesHttpParams.set(key, params[key]));
   }
 
   private fetchCourses(): Observable<CourseItem[]> {
-    return from(this.courses)
+    return this.http.get('http://localhost:3000/courses')
+      .mergeMap((data: any) => from(data))
       .map((o: any) => new CourseItem({
         ...o,
         addedDate: new Date(o.addedDate)
       }))
-      .filter((course: CourseItem) => this.filterOutdated(course, this.TWO_WEEKS))
+      // .filter((course: CourseItem) => this.filterOutdated(course, this.TWO_WEEKS))
       .toArray();
   }
 

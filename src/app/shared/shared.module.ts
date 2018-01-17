@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import * as components from './components';
 import * as pipes from './pipes';
@@ -10,7 +11,8 @@ export function toArray(obj) {
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   declarations: [
     ...toArray(components),

@@ -11,12 +11,27 @@
 .container {
   @include container;
   align-items: center;
+  flex-direction: column;
+  justify-content: center;
   background-color: $violet-color;
   color: $text-light-color;
 }
 
 .title {
-  flex-grow: 1;
   text-align: center;
   margin: 0;
+}
+
+.links {
+  margin-bottom: 12px;
+
+  a {
+    text-decoration: underline;
+    color: $white-color;
+    padding: 0 4px;
+  }
+
+  a.active {
+    color: $yellow-color;
+  }
 }

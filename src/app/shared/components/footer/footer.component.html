@@ -1,5 +1,14 @@
 <div class="wrapper">
   <div class="container">
+    <nav class="links">
+      <a routerLink="/auth"
+         routerLinkActive="active">Auth</a>
+      <a routerLink="/courses"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact: true }">Courses</a>
+      <a routerLink="/courses/add"
+         routerLinkActive="active">Add Course</a>
+    </nav>
     <h4 class="title"> Anton Dmytriichuk, 2018</h4>
   </div>
 </div>

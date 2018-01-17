@@ -1,15 +1,15 @@
 <article class="container"
-         [ngClass]="{ 'container_top-rated': courseItem.topRated }"
+         [ngClass]="{ 'container_top-rated': courseItem.isTopRated }"
          [ampHighlightRecent]="courseItem.addedDate">
   <div class="general">
     <header class="heading">
-      <div class="heading-item course-title">{{ courseItem.title | uppercase }}</div>
+      <div class="heading-item course-title">{{ courseItem.name | uppercase }}</div>
       <!--<div class="heading-item">{{ courseItem.id }}</div>-->
-      <div class="heading-item">{{ courseItem.duration | duration }}</div>
-      <div *ngIf="courseItem.topRated"
+      <div *ngIf="courseItem.isTopRated"
            class="heading-item">
         <i class="fa fa-star" aria-hidden="true"></i>
       </div>
+      <div class="heading-item course-duration">{{ courseItem.duration | duration }}</div>
       <div class="heading-item course-added-date">{{ courseItem.addedDate | date: 'mediumDate' }}</div>
     </header>
     <div class="description">{{ courseItem.description }}</div>

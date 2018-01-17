@@ -1,5 +1,7 @@
+@import '../../../../../styles/common';
+
 .wrapper {
-  padding: 10px 0 60px;
+  padding: 10px 0 calc(#{$footer-height} + 12px);
 }
 
 .container {
