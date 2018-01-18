@@ -1,6 +1,7 @@
 <amp-toolbox (searchItem)="onSearchItem($event)"></amp-toolbox>
 <div class="wrapper">
   <div class="container">
+    <amp-pagination></amp-pagination>
     <ng-container *ngIf="courses?.length !== 0; else noCourses">
       <amp-course-item *ngFor="let course of courses | orderBy: 'addedDate'"
                        [courseItem]="course"

@@ -9,9 +9,9 @@ import { DialogConfig } from '../../../../../core/models';
 import { FilterByPipe } from '../../../../../core/pipes';
 
 @Component({
-  selector: 'amp-course-list',
-  templateUrl: './course-list.component.html',
-  styleUrls: ['./course-list.component.scss']
+  selector: 'amp-courses-list',
+  templateUrl: './courses-list.component.html',
+  styleUrls: ['./courses-list.component.scss']
 })
 export class CourseListComponent implements OnDestroy, OnInit {
   courses: CourseItem[];

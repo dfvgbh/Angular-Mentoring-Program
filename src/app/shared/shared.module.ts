@@ -22,6 +22,7 @@ export function toArray(obj) {
     components.HeaderComponent,
     components.FooterComponent,
     components.LogoComponent,
+    components.PaginationComponent,
     pipes.DurationPipe,
     pipes.OrderByPipe
   ]
