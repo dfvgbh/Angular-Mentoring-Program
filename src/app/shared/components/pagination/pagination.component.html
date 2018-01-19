@@ -5,16 +5,9 @@
     </a>
   </span>
 
-  <span class="item-container">
-    <a class="page-item btn btn-violet">1</a>
-  </span>
-
-  <span class="item-container">
-    <a class="page-item btn btn-violet">2</a>
-  </span>
-
-  <span class="item-container">
-    <a class="page-item btn btn-violet">33</a>
+  <span *ngFor="let page of getPages()"
+        class="item-container">
+    <a class="page-item btn btn-violet">{{page}}</a>
   </span>
 
   <span class="item-container">

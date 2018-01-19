@@ -15,6 +15,7 @@ import { FilterByPipe } from '../../../../../core/pipes';
 })
 export class CourseListComponent implements OnDestroy, OnInit {
   courses: CourseItem[];
+  totalItems = 33;
 
   private readonly REMOVE_COURSE_DIALOG_CONFIG: DialogConfig = {
     title: 'Do you really want to delete this course?',
@@ -28,6 +29,9 @@ export class CourseListComponent implements OnDestroy, OnInit {
   constructor(private coursesService: CoursesService,
               private dialogService: DialogService,
               private filterByPipe: FilterByPipe) {
+    setTimeout(() => {
+      this.totalItems = 55;
+    }, 2000);
     this.courses = [];
   }
 
