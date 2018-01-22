@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'amp-pagination',
@@ -7,23 +7,33 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaginationComponent implements OnInit {
+  DEFAULT_PAGE_SIZE = 10;
+  START_FROM = 1;
+
+  currentPage = this.START_FROM;
+
   @Input() totalItems = 0;
-  pageSize = 10;
+  @Input() pageSize = this.DEFAULT_PAGE_SIZE;
+  @Output() pageChange = new EventEmitter<number>();
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  getPages(): number[] {
+  getPageNumbers(): number[] {
     const totalPages = this.totalItems / this.pageSize;
     const pages: number[] = [];
 
-    for (let i = 0; i < totalPages; i++) {
+    for (let i = this.START_FROM; i < totalPages + this.START_FROM; i++) {
       pages.push(i);
     }
 
     return pages;
   }
 
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.pageChange.emit(page);
+  }
 }

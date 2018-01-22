@@ -15,9 +15,11 @@ import { CoursesHttpParams } from '../models/courses-http-params.model';
 
 @Injectable()
 export class CoursesService {
+  TWO_WEEKS = 14 * 24 * 3600 * 1000;
+  COURSES_URL = 'http://localhost:3000/courses';
+
   private coursesSubject = new BehaviorSubject<CourseItem[]>([]);
-  private getCoursesHttpParams = new HttpParams();
-  private TWO_WEEKS = 14 * 24 * 3600 * 1000;
+  private coursesHttpParams = new HttpParams();
 
   constructor(private http: HttpClient) {  }
 
@@ -37,20 +39,26 @@ export class CoursesService {
       responseType: 'text'
     };
 
-    this.http.delete('http://localhost:3000/courses', options)
+    this.http.delete(this.COURSES_URL, options)
       .subscribe(
         () => this.reloadCourses(),
         err => console.log(err)
       );
   }
 
-  setCoursesHttpParams(params: CoursesHttpParams) {
+  setCoursesHttpParams(params: CoursesHttpParams): void {
     Object.keys(params)
-      .forEach(key => this.getCoursesHttpParams.set(key, params[key]));
+      .forEach(key => {
+        this.coursesHttpParams.append(key, params[key].toString());
+      });
   }
 
   private fetchCourses(): Observable<CourseItem[]> {
-    return this.http.get('http://localhost:3000/courses')
+    const options = {
+      params: this.coursesHttpParams
+    };
+
+    return this.http.get(this.COURSES_URL, options)
       .mergeMap((data: any) => from(data))
       .map((o: any) => new CourseItem({
         ...o,

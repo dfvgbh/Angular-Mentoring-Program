@@ -5,9 +5,12 @@
     </a>
   </span>
 
-  <span *ngFor="let page of getPages()"
+  <span *ngFor="let page of getPageNumbers()"
         class="item-container">
-    <a class="page-item btn btn-violet">{{page}}</a>
+    <a class="page-item btn btn-violet"
+       [ngClass]="{ 'page-item--current': currentPage === page }"
+       (click)="onPageChange(page)"
+    >{{ page }}</a>
   </span>
 
   <span class="item-container">

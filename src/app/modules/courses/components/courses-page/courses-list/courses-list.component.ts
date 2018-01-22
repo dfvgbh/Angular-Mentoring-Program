@@ -29,9 +29,6 @@ export class CourseListComponent implements OnDestroy, OnInit {
   constructor(private coursesService: CoursesService,
               private dialogService: DialogService,
               private filterByPipe: FilterByPipe) {
-    setTimeout(() => {
-      this.totalItems = 55;
-    }, 2000);
     this.courses = [];
   }
 
@@ -58,5 +55,12 @@ export class CourseListComponent implements OnDestroy, OnInit {
 
   onSearchItem(searchQuery: string) {
     this.courses = this.filterByPipe.transform(this.courses, 'title', searchQuery);
+  }
+
+  onPageChange(page: number) {
+    this.coursesService.setCoursesHttpParams({
+      page
+    });
+    this.coursesService.reloadCourses();
   }
 }
