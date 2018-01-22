@@ -1,6 +1,7 @@
 <div class="container">
   <span class="item-container">
-    <a class="page-item btn btn-violet">
+    <a class="page-item btn btn-violet"
+       (click)="toPreviousPage()">
       <li class="fa fa-chevron-left"></li>
     </a>
   </span>
@@ -14,7 +15,8 @@
   </span>
 
   <span class="item-container">
-    <a class="page-item btn btn-violet">
+    <a class="page-item btn btn-violet"
+       (click)="toNextPage()">
       <li class="fa fa-chevron-right"></li>
     </a>
   </span>

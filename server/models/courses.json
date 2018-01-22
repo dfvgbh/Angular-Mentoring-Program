@@ -30,36 +30,6 @@
   "duration": 175
  },
  {
-  "id": 45,
-  "name": "dolor ipsum culpa anim",
-  "description": "Laborum tempor fugiat labore enim elit commodo exercitation quis ullamco mollit minim elit ad. Qui ut ea elit ut. Pariatur nulla excepteur ea amet ea pariatur veniam enim excepteur.",
-  "isTopRated": true,
-  "addedDate": "2017-12-24T03:42:41+00:00",
-  "authors": [
-   {
-    "id": 1459,
-    "firstName": "Lucas",
-    "lastName": "Palmer"
-   },
-   {
-    "id": 6333,
-    "firstName": "Rutledge",
-    "lastName": "Wolfe"
-   },
-   {
-    "id": 5829,
-    "firstName": "Pitts",
-    "lastName": "Brock"
-   },
-   {
-    "id": 5107,
-    "firstName": "Concepcion",
-    "lastName": "Coffey"
-   }
-  ],
-  "duration": 368
- },
- {
   "id": 491,
   "name": "pariatur commodo duis officia",
   "description": "Nisi in ea est consectetur cillum Lorem anim cillum voluptate tempor in nulla esse in. Dolore irure laboris reprehenderit officia mollit consequat dolore non eu esse. Laborum aliqua occaecat eiusmod non commodo dolor magna fugiat culpa est esse nostrud consequat elit.",

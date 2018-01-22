@@ -36,4 +36,19 @@ export class PaginationComponent implements OnInit {
     this.currentPage = page;
     this.pageChange.emit(page);
   }
+
+  toNextPage(): void {
+    const totalPages = this.totalItems / this.pageSize;
+    if (this.currentPage >= totalPages) {
+      return;
+    }
+    this.onPageChange(this.currentPage + 1);
+  }
+
+  toPreviousPage(): void {
+    if (this.currentPage <= this.START_FROM) {
+      return;
+    }
+    this.onPageChange(this.currentPage - 1);
+  }
 }

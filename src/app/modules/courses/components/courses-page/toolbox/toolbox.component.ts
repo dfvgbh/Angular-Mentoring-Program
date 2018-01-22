@@ -8,7 +8,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class ToolboxComponent implements OnInit {
   @Output() searchItem = new EventEmitter<string>();
 
-  searchQuery = 'Search';
+  searchQuery = '';
 
   constructor() { }
 

@@ -17,9 +17,12 @@ import { CoursesHttpParams } from '../models/courses-http-params.model';
 export class CoursesService {
   TWO_WEEKS = 14 * 24 * 3600 * 1000;
   COURSES_URL = 'http://localhost:3000/courses';
+  DEFAULT_PAGE_SIZE = '10';
 
   private coursesSubject = new BehaviorSubject<CourseItem[]>([]);
-  private coursesHttpParams = new HttpParams();
+  private requestCoursesParams = new HttpParams()
+    .set('pageSize', this.DEFAULT_PAGE_SIZE)
+    .set('page', '1');
 
   constructor(private http: HttpClient) {  }
 
@@ -49,17 +52,17 @@ export class CoursesService {
   setCoursesHttpParams(params: CoursesHttpParams): void {
     Object.keys(params)
       .forEach(key => {
-        this.coursesHttpParams.append(key, params[key].toString());
+        this.requestCoursesParams = this.requestCoursesParams.set(key, params[key].toString());
       });
   }
 
   private fetchCourses(): Observable<CourseItem[]> {
     const options = {
-      params: this.coursesHttpParams
+      params: this.requestCoursesParams
     };
 
     return this.http.get(this.COURSES_URL, options)
-      .mergeMap((data: any) => from(data))
+      .mergeMap((data: any) => from(data.content))
       .map((o: any) => new CourseItem({
         ...o,
         addedDate: new Date(o.addedDate)

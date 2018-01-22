@@ -2,7 +2,6 @@ import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import * as components from './components';
-import * as pipes from './pipes';
 import * as services from './services';
 
 export function toArray(obj) {
@@ -14,8 +13,7 @@ export function toArray(obj) {
     CommonModule
   ],
   providers: [
-    ...toArray(services),
-    pipes.FilterByPipe
+    ...toArray(services)
   ],
   declarations: [...toArray(components)],
   exports: [

@@ -6,7 +6,6 @@ import { CourseItem } from '../../../models';
 import { CoursesService } from '../../../services';
 import { DialogService } from '../../../../../core/services';
 import { DialogConfig } from '../../../../../core/models';
-import { FilterByPipe } from '../../../../../core/pipes';
 
 @Component({
   selector: 'amp-courses-list',
@@ -27,8 +26,7 @@ export class CourseListComponent implements OnDestroy, OnInit {
   private unsubscribe$ = new Subject();
 
   constructor(private coursesService: CoursesService,
-              private dialogService: DialogService,
-              private filterByPipe: FilterByPipe) {
+              private dialogService: DialogService) {
     this.courses = [];
   }
 
@@ -54,7 +52,11 @@ export class CourseListComponent implements OnDestroy, OnInit {
   }
 
   onSearchItem(searchQuery: string) {
-    this.courses = this.filterByPipe.transform(this.courses, 'title', searchQuery);
+    this.coursesService.setCoursesHttpParams({
+      name: searchQuery,
+      page: 1
+    });
+    this.coursesService.reloadCourses();
   }
 
   onPageChange(page: number) {
