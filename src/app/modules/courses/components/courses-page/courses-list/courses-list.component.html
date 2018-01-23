@@ -2,6 +2,9 @@
 <div class="wrapper">
   <div class="container">
     <amp-pagination [totalItems]="totalItems"
+                    [currentPage]="currentPage"
+                    [pageSize]="pageSize"
+                    [startFrom]="startFrom"
                     (pageChange)="onPageChange($event)"
     ></amp-pagination>
     <ng-container *ngIf="courses?.length !== 0; else noCourses">

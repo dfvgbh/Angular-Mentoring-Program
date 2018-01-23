@@ -16,6 +16,11 @@
 
 .page-item {
   &--current {
-    background-color: darken($violet-color, 8%);
+    background-color: $yellow-color;
+    color: $text-color;
+
+    &:hover {
+      color: $white-color;
+    }
   }
 }

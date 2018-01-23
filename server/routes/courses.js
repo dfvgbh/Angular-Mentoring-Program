@@ -15,14 +15,15 @@ router.get('/', (req, res, next) => {
     if (err) throw err;
 
     resultData.content = JSON.parse(data);
-    resultData.totalItems = resultData.content.length;
 
-    if(params.name !== undefined && params.name !== '') {
+    if (params.name !== undefined && params.name !== '') {
       const name = params.name.toLowerCase();
 
       resultData.content = resultData.content
         .filter(item => item.name.toLowerCase().indexOf(name) !== -1);
     }
+
+    resultData.totalItems = resultData.content.length;
 
     if (params.page !== undefined) {
       const pageSize = params.pageSize === undefined

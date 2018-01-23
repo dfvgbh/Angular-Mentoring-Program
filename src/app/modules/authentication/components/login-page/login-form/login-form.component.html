@@ -2,9 +2,9 @@
   <div class="container">
     <div class="row">
       <label>
-        Username
+        Login
         <input
-          [(ngModel)]="username"
+          [(ngModel)]="login"
           type="text"
         >
       </label>
@@ -21,7 +21,7 @@
     <div class="row">
       <a
         class="login-btn btn btn-violet"
-        (click)="login()"
+        (click)="onLogin()"
       >Login</a>
     </div>
   </div>

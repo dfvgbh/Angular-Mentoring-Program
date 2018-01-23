@@ -7,13 +7,10 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaginationComponent implements OnInit {
-  DEFAULT_PAGE_SIZE = 10;
-  START_FROM = 1;
-
-  currentPage = this.START_FROM;
-
-  @Input() totalItems = 0;
-  @Input() pageSize = this.DEFAULT_PAGE_SIZE;
+  @Input() totalItems;
+  @Input() pageSize;
+  @Input() currentPage;
+  @Input() startFrom;
   @Output() pageChange = new EventEmitter<number>();
 
   constructor() { }
@@ -25,7 +22,7 @@ export class PaginationComponent implements OnInit {
     const totalPages = this.totalItems / this.pageSize;
     const pages: number[] = [];
 
-    for (let i = this.START_FROM; i < totalPages + this.START_FROM; i++) {
+    for (let i = this.startFrom; i < totalPages + this.startFrom; i++) {
       pages.push(i);
     }
 
@@ -46,7 +43,7 @@ export class PaginationComponent implements OnInit {
   }
 
   toPreviousPage(): void {
-    if (this.currentPage <= this.START_FROM) {
+    if (this.currentPage <= this.startFrom) {
       return;
     }
     this.onPageChange(this.currentPage - 1);

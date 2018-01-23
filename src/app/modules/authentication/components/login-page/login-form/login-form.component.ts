@@ -8,7 +8,7 @@ import { AuthenticationService } from '../../../../../core/services';
   styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent implements OnInit {
-  username = '';
+  login = '';
   password = '';
 
   constructor(private authenticationService: AuthenticationService) {
@@ -17,7 +17,7 @@ export class LoginFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  login() {
-    this.authenticationService.login(this.username, this.password);
+  onLogin() {
+    this.authenticationService.login(this.login, this.password);
   }
 }

@@ -2,10 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 
-import { CourseItem } from '../../../models';
-import { CoursesService } from '../../../services';
+import { DEFAULT_PAGE_SIZE, PAGES_START_FROM} from '../../../courses.constants';
+import { CourseItem, CoursesResponseParams } from '../../../models';
+import { CoursesService, CoursesConfigService } from '../../../services';
 import { DialogService } from '../../../../../core/services';
 import { DialogConfig } from '../../../../../core/models';
+import { CoursesRequestParams } from '../../../models/courses-request-params.model';
 
 @Component({
   selector: 'amp-courses-list',
@@ -13,8 +15,11 @@ import { DialogConfig } from '../../../../../core/models';
   styleUrls: ['./courses-list.component.scss']
 })
 export class CourseListComponent implements OnDestroy, OnInit {
-  courses: CourseItem[];
-  totalItems = 33;
+  courses: CourseItem[] = [];
+  totalItems = 0;
+  currentPage = PAGES_START_FROM;
+  pageSize = DEFAULT_PAGE_SIZE;
+  startFrom = PAGES_START_FROM;
 
   private readonly REMOVE_COURSE_DIALOG_CONFIG: DialogConfig = {
     title: 'Do you really want to delete this course?',
@@ -26,15 +31,24 @@ export class CourseListComponent implements OnDestroy, OnInit {
   private unsubscribe$ = new Subject();
 
   constructor(private coursesService: CoursesService,
+              private coursesConfigService: CoursesConfigService,
               private dialogService: DialogService) {
-    this.courses = [];
   }
 
   ngOnInit() {
-    this.coursesService.reloadCourses();
     this.coursesService.getCourses$()
       .takeUntil(this.unsubscribe$)
-      .subscribe(courses => this.courses = courses);
+      .subscribe((data: CoursesResponseParams) => {
+        this.totalItems = data.totalItems;
+        this.courses = data.content;
+      });
+
+    this.coursesConfigService.getConfig$()
+      .takeUntil(this.unsubscribe$)
+      .subscribe((config: CoursesRequestParams) => {
+        this.currentPage = config.page;
+        this.pageSize = config.pageSize;
+      });
   }
 
   ngOnDestroy() {
@@ -52,17 +66,15 @@ export class CourseListComponent implements OnDestroy, OnInit {
   }
 
   onSearchItem(searchQuery: string) {
-    this.coursesService.setCoursesHttpParams({
+    this.coursesConfigService.setConfig({
       name: searchQuery,
       page: 1
     });
-    this.coursesService.reloadCourses();
   }
 
   onPageChange(page: number) {
-    this.coursesService.setCoursesHttpParams({
+    this.coursesConfigService.setConfig({
       page
     });
-    this.coursesService.reloadCourses();
   }
 }

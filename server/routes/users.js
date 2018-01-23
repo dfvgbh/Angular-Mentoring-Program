@@ -14,7 +14,12 @@ router.post('/login', (req, res, next) => {
     const user = users.find(user => user.login === login && user.password === password);
 
     if (!user) {
-      res.sendStatus(404);
+      res.status(401).send({
+        meta: {
+          status: 401,
+          message: 'Unauthorized'
+        }
+      });
       return;
     }
 
@@ -27,7 +32,12 @@ router.post('/login', (req, res, next) => {
 
 
 router.post('/logout', (req, res, next) => {
-  res.sendStatus(200);
+  res.status(200).send({
+    meta: {
+      status: 200,
+      message: 'OK'
+    }
+  });
 });
 
 function generateToken() {
