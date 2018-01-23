@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import * as components from './components';
 import * as services from './services';
+import { AuthorizedHttpClientInterceptor } from './services/interceptors/authorized-http-client.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 export function toArray(obj) {
   return Object.values(obj);
@@ -13,6 +15,11 @@ export function toArray(obj) {
     CommonModule
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthorizedHttpClientInterceptor,
+      multi: true
+    },
     ...toArray(services)
   ],
   declarations: [...toArray(components)],

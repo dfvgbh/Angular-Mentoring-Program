@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var courses = require('./routes/courses');
+var users = require('./routes/users');
 
 var app = express();
 
@@ -26,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Headers', 'Authorization, content-type');
   res.setHeader('Access-Control-Allow-Credentials', true);
 
   next();
@@ -34,6 +35,7 @@ app.use(function (req, res, next) {
 
 app.use('/', index);
 app.use('/courses', courses);
+app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

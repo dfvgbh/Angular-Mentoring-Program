@@ -1,32 +1,50 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class AuthenticationService {
   private userInfoSubject: BehaviorSubject<string>;
+  USERS_URL = 'http://localhost:3000/users';
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.userInfoSubject = new BehaviorSubject(this.getUserInfo());
   }
 
-  login(username: string, password: string): void {
+  login(login: string, password: string): void {
     this.log('Logging in...');
-    if (!username || !password) {
+    if (!login || !password) {
       return;
     }
-    localStorage.setItem('username', username);
-    localStorage.setItem('token', this.getToken(username));
 
-    this.broadcastUserInfo();
+    const body = {
+      login,
+      password
+    };
+    this.http.post(`${this.USERS_URL}/login`, body)
+      .subscribe(
+        (data: any) => {
+          localStorage.setItem('username', data.username);
+          localStorage.setItem('token', data.token);
+          this.broadcastUserInfo();
+        },
+        (err) => console.log(err)
+      );
   }
 
   logout(): void {
     this.log('Logging out...');
-    localStorage.removeItem('username');
-    localStorage.removeItem('token');
 
-    this.broadcastUserInfo();
+    this.http.post(`${this.USERS_URL}/logout`, null, { responseType: 'text'})
+      .subscribe(
+        (data: any) => {
+          localStorage.removeItem('username');
+          localStorage.removeItem('token');
+          this.broadcastUserInfo();
+        },
+        (err) => console.log(err)
+      );
   }
 
   isAuthenticated(): boolean {
@@ -38,16 +56,16 @@ export class AuthenticationService {
     return this.userInfoSubject.asObservable();
   }
 
+  getToken(): string {
+    return localStorage.getItem('token');
+  }
+
   private broadcastUserInfo() {
     this.userInfoSubject.next(this.getUserInfo());
   }
 
   private getUserInfo(): string {
     return localStorage.getItem('username');
-  }
-
-  private getToken(username: string = ''): string {
-    return `${username}${+new Date()}`;
   }
 
   private log(msg: string): void {
