@@ -17,7 +17,8 @@ export class LoginFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  onLogin() {
+  onLogin(e: Event) {
+    e.preventDefault();
     this.authenticationService.login(this.login, this.password);
   }
 }
