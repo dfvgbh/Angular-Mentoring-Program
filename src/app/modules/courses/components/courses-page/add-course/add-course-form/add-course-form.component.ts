@@ -39,10 +39,20 @@ export class AddCourseFormComponent implements OnInit {
       .subscribe((data) => console.log(data));
   }
 
+  isInputInvalid(name: string): boolean {
+    return (this.addCourseForm.get(name).touched || this.addCourseForm.get(name).dirty)
+      && this.addCourseForm.get(name).invalid;
+  }
+
+  hasInputError(name: string, error: string): boolean {
+    return (this.addCourseForm.get(name).touched || this.addCourseForm.get(name).dirty)
+      && this.addCourseForm.get(name).hasError(error);
+  }
+
   private createForm() {
     this.addCourseForm = this.fb.group({
-      title: ['', [Validators.required, Validators.maxLength(5)] ],
-      description: ['', Validators.maxLength(50)]
+      title: ['', [Validators.required, Validators.maxLength(50)] ],
+      description: ['', [Validators.required, Validators.maxLength(500)]]
     });
   }
 }

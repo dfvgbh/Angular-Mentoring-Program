@@ -1,10 +1,28 @@
+@import '../../../../../../styles/common';
+
 .wrapper {
   width: 100%;
+  padding: 10px 0 calc(#{$footer-height} + 12px);
 }
 
 .add-form {
   width: calc(300px + 20%);
   margin: 40px auto;
+
+  input, textarea {
+    border: 1px solid $dark-grey-color;
+    border-radius: 4px;
+    padding: 3px 5px;
+    outline: none;
+
+    &:focus {
+      outline: none;
+    }
+
+    &.error {
+      border: 1px solid $red-color;
+    }
+  }
 }
 
 .form-row {
@@ -33,6 +51,15 @@
 
 .button-save, .button-cancel {
   margin: 0 10px;
+  border: none;
 }
 
+.button-save[disabled] {
+  background-color: $red-color;
+}
 
+.error-msg {
+  color: $red-color;
+  font-weight: bold;
+  font-size: .8rem;
+}
