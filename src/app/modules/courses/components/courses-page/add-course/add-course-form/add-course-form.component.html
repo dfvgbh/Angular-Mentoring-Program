@@ -42,20 +42,35 @@
     <div class="form-row">
       <div class="form-row__title">Date</div>
       <div class="form-row__aside-right">
-        <input class="full-width" type="text">
+        <input
+          formControlName="date"
+          class="full-width"
+          [ngClass]="{ 'error': isInputInvalid('date') }"
+          type="text">
+        <span
+          class="error-msg"
+          *ngIf="hasInputError('date', 'dateFormat')">Please specify date dd/mm/yyyy</span>
       </div>
     </div>
     <div class="form-row">
       <div class="form-row__title">Duration</div>
       <div class="form-row__aside-right">
-        <!--<input [(ngModel)]="duration" type="text">-->
-        <input type="text">
-        <span>{{ duration | duration }}</span>
+        <input
+          formControlName="duration"
+          [ngClass]="{ 'error': isInputInvalid('duration') }"
+          type="text">
+        <span>{{ addCourseForm.get('duration').value | duration }}</span>
+        <span
+          class="error-msg"
+          *ngIf="hasInputError('duration', 'durationFormat')">Please specify a number</span>
       </div>
     </div>
     <div class="form-row">
       <div class="form-row__title">Authors</div>
       <div class="form-row__aside-right">
+        <amp-authors-panel
+          formControlName="authors"
+        ></amp-authors-panel>
       </div>
     </div>
     <div class="form-row form-row--centralised">

@@ -2,6 +2,9 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
+import { dateValidator } from './date.validator';
+import { durationValidator } from './duration.validator';
+
 @Component({
   selector: 'amp-add-course-form',
   templateUrl: './add-course-form.component.html',
@@ -13,7 +16,6 @@ export class AddCourseFormComponent implements OnInit {
 
   addCourseForm: FormGroup;
   AUTHORS_URL = 'http://localhost:3000/authors';
-  duration = '';
 
   constructor(private http: HttpClient,
               private fb: FormBuilder) {
@@ -52,7 +54,10 @@ export class AddCourseFormComponent implements OnInit {
   private createForm() {
     this.addCourseForm = this.fb.group({
       title: ['', [Validators.required, Validators.maxLength(50)] ],
-      description: ['', [Validators.required, Validators.maxLength(500)]]
+      description: ['', [Validators.required, Validators.maxLength(500)]],
+      date: ['', [Validators.required, dateValidator]],
+      duration: ['', [Validators.required, durationValidator]],
+      authors: [['22', 'aa'], Validators.required]
     });
   }
 }

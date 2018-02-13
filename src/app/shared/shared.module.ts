@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 
 import * as components from './components';
 import * as pipes from './pipes';
-import { DateInputComponent } from './components/date-input/date-input.component';
 
 export function toArray(obj) {
   return Object.values(obj);
@@ -17,16 +16,11 @@ export function toArray(obj) {
   ],
   declarations: [
     ...toArray(components),
-    ...toArray(pipes),
-    DateInputComponent
+    ...toArray(pipes)
   ],
   exports: [
-    components.HeaderComponent,
-    components.FooterComponent,
-    components.LogoComponent,
-    components.PaginationComponent,
-    pipes.DurationPipe,
-    pipes.OrderByPipe
+    ...toArray(components),
+    ...toArray(pipes)
   ]
 })
 export class SharedModule { }
