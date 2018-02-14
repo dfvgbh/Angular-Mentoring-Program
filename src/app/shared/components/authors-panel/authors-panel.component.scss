@@ -1,0 +1,17 @@
+@import '../../../styles/common';
+
+.authors-item {
+  list-style-type: none;
+  margin-bottom: 4px;
+}
+
+.authors-list {
+  padding: 6px 10px;
+  margin: 3px 0;
+  border: 2px solid $dark-grey-color;
+  border-radius: 5px;
+}
+
+.authors-name {
+  padding-left: 6px;
+}

@@ -69,8 +69,14 @@
       <div class="form-row__title">Authors</div>
       <div class="form-row__aside-right">
         <amp-authors-panel
+          class="authors"
           formControlName="authors"
+          [authorsList]="authorsList"
+          [ngClass]="{ 'error': addCourseForm.get('authors').invalid }"
         ></amp-authors-panel>
+        <span
+          class="error-msg"
+          *ngIf="this.addCourseForm.get('authors').hasError('empty')">At least 1 author should be chosen</span>
       </div>
     </div>
     <div class="form-row form-row--centralised">
@@ -87,5 +93,6 @@
   </form>
 
   <p>Form value: {{ addCourseForm.value | json }}</p>
-  <p>Form status: {{ addCourseForm.status | json }}</p>
+  <p>Form status: {{ addCourseForm.status }}</p>
+  <p>Authors status: {{ addCourseForm.get('authors').status }}</p>
 </div>

@@ -1,21 +1,9 @@
 import { Component, OnInit, forwardRef, Input } from '@angular/core';
-import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
+import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, Validator } from '@angular/forms';
 
-// https://blog.thoughtram.io/angular/2016/07/27/custom-form-controls-in-angular-2.html#demos
-
-// export function createCounterRangeValidator(maxValue, minValue) {
-//   return (c: FormControl) => {
-//     const err = {
-//       rangeError: {
-//         given: c.value,
-//         max: maxValue || 10,
-//         min: minValue || 0
-//       }
-//     };
-//
-//     return (c.value > +maxValue || c.value < +minValue) ? err : null;
-//   };
-// }
+export function isEmptyValidator(c: FormControl) {
+  return c.value.length > 0 ? null : { empty: true };
+}
 
 @Component({
   selector: 'amp-authors-panel',
@@ -23,25 +11,27 @@ import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS } f
   styleUrls: ['./authors-panel.component.scss'],
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => AuthorsPanelComponent), multi: true },
+    { provide: NG_VALIDATORS, useExisting: forwardRef(() => AuthorsPanelComponent), multi: true }
   ]
 })
-export class AuthorsPanelComponent implements ControlValueAccessor {
-  _counterValue = {};
+export class AuthorsPanelComponent implements ControlValueAccessor, Validator {
+  @Input() authorsList = [];
 
+  _authors = [];
   propagateChange: any = () => {};
 
-  get counterValue() {
-    return this._counterValue;
+  get authors() {
+    return this._authors;
   }
 
-  set counterValue(val) {
-    this._counterValue = val;
+  set authors(val) {
+    this._authors = val;
     this.propagateChange(val);
   }
 
   writeValue(value) {
     if (value) {
-      this.counterValue = value;
+      this.authors = value;
     }
   }
 
@@ -50,4 +40,16 @@ export class AuthorsPanelComponent implements ControlValueAccessor {
   }
 
   registerOnTouched() {}
+
+  onCheckedChange(event, author) {
+    if (event.target.checked) {
+      this.authors = [...this.authors, author];
+    } else {
+      this.authors = this.authors.filter(item => item !== author);
+    }
+  }
+
+  validate(c: FormControl) {
+    return isEmptyValidator(c);
+  }
 }

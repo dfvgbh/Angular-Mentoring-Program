@@ -16,6 +16,7 @@ export class AddCourseFormComponent implements OnInit {
 
   addCourseForm: FormGroup;
   AUTHORS_URL = 'http://localhost:3000/authors';
+  authorsList: string[] = [];
 
   constructor(private http: HttpClient,
               private fb: FormBuilder) {
@@ -38,7 +39,7 @@ export class AddCourseFormComponent implements OnInit {
 
   fetchAuthors() {
     this.http.get(this.AUTHORS_URL)
-      .subscribe((data) => console.log(data));
+      .subscribe((data) => this.authorsList = <string[]> data);
   }
 
   isInputInvalid(name: string): boolean {
@@ -57,7 +58,7 @@ export class AddCourseFormComponent implements OnInit {
       description: ['', [Validators.required, Validators.maxLength(500)]],
       date: ['', [Validators.required, dateValidator]],
       duration: ['', [Validators.required, durationValidator]],
-      authors: [['22', 'aa'], Validators.required]
+      authors: [['K. A. Applegate', 'Jeffrey Archer'], Validators.required]
     });
   }
 }

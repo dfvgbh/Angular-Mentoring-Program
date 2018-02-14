@@ -1,3 +1,13 @@
 <div>
-  {{_counterValue | json }}
+  <ul class="authors-list">
+    <li
+      *ngFor="let author of authorsList"
+      class="authors-item">
+      <input
+        type="checkbox"
+        [checked]="authors.includes(author)"
+        (change)="onCheckedChange($event, author)">
+      <span class="authors-name">{{ author }}</span>
+    </li>
+  </ul>
 </div>
