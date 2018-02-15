@@ -30,7 +30,8 @@ export function toArray(obj) {
   ],
   exports: [
     components.CoursesPageComponent,
-    components.AddCoursePageComponent
+    components.AddCoursePageComponent,
+    components.EditCoursePageComponent
   ]
 })
 export class CoursesModule {
