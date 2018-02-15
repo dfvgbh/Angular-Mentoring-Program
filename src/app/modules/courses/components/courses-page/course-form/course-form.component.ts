@@ -6,15 +6,15 @@ import { dateValidator } from './date.validator';
 import { durationValidator } from './duration.validator';
 
 @Component({
-  selector: 'amp-add-course-form',
-  templateUrl: './add-course-form.component.html',
-  styleUrls: ['./add-course-form.component.scss']
+  selector: 'amp-course-form',
+  templateUrl: './course-form.component.html',
+  styleUrls: ['./course-form.component.scss']
 })
-export class AddCourseFormComponent implements OnInit {
+export class CourseFormComponent implements OnInit {
   @Output() save = new EventEmitter();
   @Output() cancel = new EventEmitter();
 
-  addCourseForm: FormGroup;
+  courseForm: FormGroup;
   AUTHORS_URL = 'http://localhost:3000/authors';
   authorsList: string[] = [];
 
@@ -43,17 +43,17 @@ export class AddCourseFormComponent implements OnInit {
   }
 
   isInputInvalid(name: string): boolean {
-    return (this.addCourseForm.get(name).touched || this.addCourseForm.get(name).dirty)
-      && this.addCourseForm.get(name).invalid;
+    return (this.courseForm.get(name).touched || this.courseForm.get(name).dirty)
+      && this.courseForm.get(name).invalid;
   }
 
   hasInputError(name: string, error: string): boolean {
-    return (this.addCourseForm.get(name).touched || this.addCourseForm.get(name).dirty)
-      && this.addCourseForm.get(name).hasError(error);
+    return (this.courseForm.get(name).touched || this.courseForm.get(name).dirty)
+      && this.courseForm.get(name).hasError(error);
   }
 
   private createForm() {
-    this.addCourseForm = this.fb.group({
+    this.courseForm = this.fb.group({
       title: ['', [Validators.required, Validators.maxLength(50)] ],
       description: ['', [Validators.required, Validators.maxLength(500)]],
       date: ['', [Validators.required, dateValidator]],

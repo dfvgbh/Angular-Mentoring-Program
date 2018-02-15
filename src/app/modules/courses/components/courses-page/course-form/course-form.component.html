@@ -1,7 +1,7 @@
 <div class="wrapper">
 
   <form
-    [formGroup]="addCourseForm"
+    [formGroup]="courseForm"
     novalidate
     class="add-form">
 
@@ -59,7 +59,7 @@
           formControlName="duration"
           [ngClass]="{ 'error': isInputInvalid('duration') }"
           type="text">
-        <span>{{ addCourseForm.get('duration').value | duration }}</span>
+        <span>{{ courseForm.get('duration').value | duration }}</span>
         <span
           class="error-msg"
           *ngIf="hasInputError('duration', 'durationFormat')">Please specify a number</span>
@@ -72,18 +72,18 @@
           class="authors"
           formControlName="authors"
           [authorsList]="authorsList"
-          [ngClass]="{ 'error': addCourseForm.get('authors').invalid }"
+          [ngClass]="{ 'error': courseForm.get('authors').invalid }"
         ></amp-authors-panel>
         <span
           class="error-msg"
-          *ngIf="this.addCourseForm.get('authors').hasError('empty')">At least 1 author should be chosen</span>
+          *ngIf="this.courseForm.get('authors').hasError('empty')">At least 1 author should be chosen</span>
       </div>
     </div>
     <div class="form-row form-row--centralised">
       <button
          class="button-save btn btn-violet"
          (click)="onSave()"
-         [disabled]="addCourseForm.invalid"
+         [disabled]="courseForm.invalid"
       >Save</button>
       <button
         class="button-cancel btn btn-red"
@@ -92,7 +92,7 @@
     </div>
   </form>
 
-  <p>Form value: {{ addCourseForm.value | json }}</p>
-  <p>Form status: {{ addCourseForm.status }}</p>
-  <p>Authors status: {{ addCourseForm.get('authors').status }}</p>
+  <p>Form value: {{ courseForm.value | json }}</p>
+  <p>Form status: {{ courseForm.status }}</p>
+  <p>Authors status: {{ courseForm.get('authors').status }}</p>
 </div>

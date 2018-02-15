@@ -3,15 +3,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { from } from 'rxjs/observable/from';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/reduce';
-import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/toArray';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/mergeMap';
 
-import { CoursesRequestParams, CoursesResponseParams } from '../models';
+import { CoursesResponseParams } from '../models';
 import { CoursesConfigService } from './courses-config.service';
 
 @Injectable()
@@ -67,19 +61,5 @@ export class CoursesService {
           addedDate: new Date(item.addedDate)
         }))
       }));
-      // .mergeMap((data: any) => {
-      //   return from(data.content)
-      //     .reduce((acc, curr: any) => {
-      //         acc.content.push({
-      //           ...curr,
-      //           addedDate: new Date(curr.addedDate)
-      //         });
-      //         return acc;
-      //       }, {
-      //         totalItems: data.totalItems,
-      //         content: []
-      //       }
-      //     );
-      // });
   }
 }
