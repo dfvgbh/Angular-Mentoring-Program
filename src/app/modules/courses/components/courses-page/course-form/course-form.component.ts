@@ -1,30 +1,39 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { dateValidator } from './date.validator';
 import { durationValidator } from './duration.validator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'amp-course-form',
   templateUrl: './course-form.component.html',
   styleUrls: ['./course-form.component.scss']
 })
-export class CourseFormComponent implements OnInit {
+export class CourseFormComponent implements OnInit, OnChanges {
   @Output() save = new EventEmitter();
   @Output() cancel = new EventEmitter();
 
-  courseForm: FormGroup;
+  @Input() formValue;
+
   AUTHORS_URL = 'http://localhost:3000/authors';
+  courseForm: FormGroup;
   authorsList: string[] = [];
 
   constructor(private http: HttpClient,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private router: Router) {
     this.createForm();
   }
 
   ngOnInit() {
     this.fetchAuthors();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.formValue !== undefined) {
+      this.setForm(this.formValue);
+    }
   }
 
   onSave(): void {
@@ -34,7 +43,7 @@ export class CourseFormComponent implements OnInit {
 
   onCancel(): void {
     this.cancel.emit();
-    console.log('Cancel!');
+    this.router.navigate(['/courses']);
   }
 
   fetchAuthors() {
@@ -56,9 +65,23 @@ export class CourseFormComponent implements OnInit {
     this.courseForm = this.fb.group({
       title: ['', [Validators.required, Validators.maxLength(50)] ],
       description: ['', [Validators.required, Validators.maxLength(500)]],
-      date: ['', [Validators.required, dateValidator]],
+      date: [null, [Validators.required]],
       duration: ['', [Validators.required, durationValidator]],
-      authors: [['K. A. Applegate', 'Jeffrey Archer'], Validators.required]
+      authors: [[], Validators.required]
     });
+  }
+
+  private setForm(formValue) {
+    this.courseForm.setValue({
+      title: formValue.name,
+      description: formValue.description,
+      date: formValue.addedDate,
+      duration: formValue.duration,
+      authors: formValue.authors
+    });
+    Object.keys(this.courseForm.controls)
+      .forEach(key => {
+        this.courseForm.get(key).markAsDirty();
+      });
   }
 }

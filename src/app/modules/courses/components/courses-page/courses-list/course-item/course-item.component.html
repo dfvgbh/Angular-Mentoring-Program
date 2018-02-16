@@ -1,6 +1,7 @@
 <article class="container"
          [ngClass]="{ 'container_top-rated': courseItem.isTopRated }"
-         [ampHighlightRecent]="courseItem.addedDate">
+         [ampHighlightRecent]="courseItem.addedDate"
+         (click)="navigateToCourse(courseItem)" >
   <div class="general">
     <header class="heading">
       <div class="heading-item course-title">{{ courseItem.name | uppercase }}</div>

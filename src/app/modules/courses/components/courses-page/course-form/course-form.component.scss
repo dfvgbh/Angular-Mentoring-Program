@@ -59,6 +59,7 @@
 }
 
 .error-msg {
+  display: block;
   color: $red-color;
   font-weight: bold;
   font-size: .8rem;

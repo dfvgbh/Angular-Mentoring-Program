@@ -42,14 +42,13 @@
     <div class="form-row">
       <div class="form-row__title">Date</div>
       <div class="form-row__aside-right">
-        <input
+        <amp-course-date-input
           formControlName="date"
           class="full-width"
-          [ngClass]="{ 'error': isInputInvalid('date') }"
-          type="text">
+          [ngClass]="{ 'error': isInputInvalid('date') }"></amp-course-date-input>
         <span
           class="error-msg"
-          *ngIf="hasInputError('date', 'dateFormat')">Please specify date dd/mm/yyyy</span>
+          *ngIf="hasInputError('date', 'required')">Please specify date dd/mm/yyyy</span>
       </div>
     </div>
     <div class="form-row">

@@ -7,6 +7,7 @@ import { AddCoursePageComponent } from './modules/courses/components/courses-pag
 import { LoginPageComponent } from './modules/authentication/components/login-page';
 import { PageNotFoundComponent } from './shared/components/page-not-found';
 import { AuthGuard } from './auth-guard.service';
+import { EditCoursePageComponent } from './modules/courses/components/courses-page/edit-course-page';
 
 const routes: Routes = [
   {
@@ -21,7 +22,12 @@ const routes: Routes = [
     children: [
       {
         path: 'new',
+        pathMatch: 'full',
         component: AddCoursePageComponent
+      },
+      {
+        path: ':id',
+        component: EditCoursePageComponent
       },
       {
         path: '',
@@ -44,6 +50,7 @@ const routes: Routes = [
   providers: [
     AuthGuard
   ],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

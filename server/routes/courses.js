@@ -39,6 +39,18 @@ router.get('/', (req, res, next) => {
   });
 });
 
+router.get('/:id', (req, res, next) => {
+  const id     = +req.params.id;
+
+  fs.readFile(COURSES_PATH, (err, data) => {
+    if (err) throw err;
+    const courses = JSON.parse(data);
+    const result = courses.find(course => course.id === id);
+
+    result === undefined ? res.send({}) : res.send(result);
+  });
+});
+
 router.delete('/', (req, res, next) => {
   const id = parseInt(req.query.id, 10);
 
