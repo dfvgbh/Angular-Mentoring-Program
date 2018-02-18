@@ -66,7 +66,7 @@ export class CourseFormComponent implements OnInit, OnChanges {
       title: ['', [Validators.required, Validators.maxLength(50)] ],
       description: ['', [Validators.required, Validators.maxLength(500)]],
       date: [null, [Validators.required]],
-      duration: ['', [Validators.required, durationValidator]],
+      duration: [0, [Validators.required, durationValidator]],
       authors: [[], Validators.required]
     });
   }

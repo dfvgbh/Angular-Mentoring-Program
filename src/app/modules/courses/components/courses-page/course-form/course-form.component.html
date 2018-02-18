@@ -1,5 +1,4 @@
 <div class="wrapper">
-
   <form
     [formGroup]="courseForm"
     novalidate
@@ -54,10 +53,10 @@
     <div class="form-row">
       <div class="form-row__title">Duration</div>
       <div class="form-row__aside-right">
-        <input
+        <amp-course-date-input
           formControlName="duration"
           [ngClass]="{ 'error': isInputInvalid('duration') }"
-          type="text">
+          type="text"></amp-course-date-input>
         <span>{{ courseForm.get('duration').value | duration }}</span>
         <span
           class="error-msg"
