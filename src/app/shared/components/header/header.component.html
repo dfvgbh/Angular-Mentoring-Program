@@ -7,7 +7,11 @@
         class="breadcrumbs"
         *ngIf="isAuthenticated()"
       >
-        <span *ngFor="let bs of breadcrumbs; let last = last"><a [routerLink]="bs.link">{{ bs.name }}</a>
+        <span *ngFor="let brs of breadcrumbs; let last = last">
+          <a *ngIf="brs.link; else notlink" [routerLink]="brs.link">{{ brs.name }}</a>
+          <ng-template #notlink>
+            <span>{{ brs.name }}</span>
+          </ng-template>
           <span *ngIf="!last"> > </span>
         </span>
       </div>

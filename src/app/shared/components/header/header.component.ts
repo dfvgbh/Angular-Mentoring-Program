@@ -44,7 +44,10 @@ export class HeaderComponent implements OnInit {
     const parts = this.router.url.split('/');
     parts.shift();
     parts.forEach(part => {
-      this.breadcrumbs.push({ name: part });
+      this.breadcrumbs.push({
+        name: part,
+        link: null
+      });
     });
     this.breadcrumbs[0].link = `/${parts[0]}`;
   }

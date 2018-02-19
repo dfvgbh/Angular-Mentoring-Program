@@ -26,12 +26,14 @@
  {
   "id": 857,
   "name": "x33",
-  "description": "Cupidatat officia voluptate elit ad do. Lorem consectetur nostrud mollit amet ex enim. Do ut sit proident ex aliqua enim sint id.",
+  "description": "тфьыьвьфыв",
   "isTopRated": false,
   "addedDate": "2017-04-25T00:00:00.000Z",
   "authors": [
    "Maja Apostoloska",
-   "K. A. Applegate"
+   "K. A. Applegate",
+   "Jennifer Archer",
+   "Jeffrey Archer"
   ],
   "duration": 5555
  },
@@ -40,12 +42,12 @@
   "name": "nulla nulla eiusmod quis",
   "description": "EDITAble",
   "isTopRated": true,
-  "addedDate": "2017-01-21T15:06:35+00:00",
+  "addedDate": "2017-01-21T00:00:00.000Z",
   "authors": [
    "Maja Apostoloska",
    "K. A. Applegate"
   ],
-  "duration": 12,
+  "duration": 123,
   "title": "nulla nulla eiusmod quis",
   "date": "2017-01-21T00:00:00.000Z"
  },
