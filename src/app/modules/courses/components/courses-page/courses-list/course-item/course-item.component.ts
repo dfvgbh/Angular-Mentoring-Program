@@ -14,7 +14,8 @@ export class CourseItemComponent {
 
   constructor(private router: Router) { }
 
-  onRemoveItem(courseItem: CourseItem) {
+  onRemoveItem(event, courseItem: CourseItem) {
+    event.stopPropagation();
     this.removeItem.emit(courseItem);
   }
 

@@ -19,15 +19,24 @@ const routes: Routes = [
     path: 'courses',
     component: CoursesPageComponent,
     canActivate: [AuthGuard],
+    data: {
+      breadcrumb: 'Courses'
+    },
     children: [
       {
         path: 'new',
-        pathMatch: 'full',
-        component: AddCoursePageComponent
+        component: AddCoursePageComponent,
+        data: {
+          breadcrumb: 'Add course'
+        },
       },
       {
         path: ':id',
-        component: EditCoursePageComponent
+        component: EditCoursePageComponent,
+        data: {
+          breadcrumb: `Course`,
+          param: 'id'
+        },
       },
       {
         path: '',
@@ -37,7 +46,10 @@ const routes: Routes = [
   },
   {
     path: 'auth',
-    component: LoginPageComponent
+    component: LoginPageComponent,
+    data: {
+      breadcrumb: 'Login'
+    },
   },
   {
     path: '**',

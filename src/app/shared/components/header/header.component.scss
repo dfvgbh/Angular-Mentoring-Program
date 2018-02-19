@@ -31,3 +31,10 @@
   color: $yellow-color;
   font-size: 1.1rem;
 }
+
+.breadcrumbs {
+  a {
+    text-decoration: none;
+    color: $yellow-color;
+  }
+}

@@ -3,6 +3,7 @@
     <input [(ngModel)]="searchQuery">
     <a class="find-button btn btn-violet"
        (click)="onSearchItem(searchQuery)">Find</a>
-    <a class="add-button btn btn-violet">Add course</a>
+    <a class="add-button btn btn-violet"
+       routerLink="/courses/new">Add course</a>
   </div>
 </div>

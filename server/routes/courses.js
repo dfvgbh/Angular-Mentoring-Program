@@ -51,6 +51,26 @@ router.get('/:id', (req, res, next) => {
   });
 });
 
+router.put('/:id', (req, res, next) => {
+  const id = +req.params.id;
+  const body = req.body;
+
+  fs.readFile(COURSES_PATH, (err, data) => {
+    if (err) throw err;
+    const courses = JSON.parse(data);
+    const target = courses.find(course => course.id === id);
+
+    Object.assign(target, body);
+
+    const result = JSON.stringify(courses, null, 1);
+
+    fs.writeFile(COURSES_PATH, result, err => {
+      if (err) throw err;
+      res.status(200).send({ status: 'OK'});
+    });
+  });
+});
+
 router.delete('/', (req, res, next) => {
   const id = parseInt(req.query.id, 10);
 
@@ -75,6 +95,24 @@ router.delete('/', (req, res, next) => {
     fs.writeFile(COURSES_PATH, resultData, err => {
       if (err) throw err;
       res.sendStatus(200);
+    });
+  });
+});
+
+router.post('/', (req, res, next) => {
+  const body = req.body;
+
+  fs.readFile(COURSES_PATH, (err, data) => {
+    if (err) throw err;
+    const courses = JSON.parse(data);
+    body.id = courses[courses.length - 1].id + 1;
+    courses.push(body);
+
+    const result = JSON.stringify(courses, null, 1);
+
+    fs.writeFile(COURSES_PATH, result, err => {
+      if (err) throw err;
+      res.status(200).send({ status: 'OK'});
     });
   });
 });

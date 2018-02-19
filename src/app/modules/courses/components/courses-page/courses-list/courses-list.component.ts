@@ -46,9 +46,11 @@ export class CourseListComponent implements OnDestroy, OnInit {
     this.coursesConfigService.getConfig$()
       .takeUntil(this.unsubscribe$)
       .subscribe((config: CoursesRequestParams) => {
+        this.coursesService.reloadCourses();
         this.currentPage = config.page;
         this.pageSize = config.pageSize;
       });
+
   }
 
   ngOnDestroy() {

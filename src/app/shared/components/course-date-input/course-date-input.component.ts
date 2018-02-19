@@ -1,30 +1,30 @@
 import { Component, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'amp-course-duration-input',
-  template: `<input [(ngModel)]="duration"
+  selector: 'amp-course-date-input',
+  template: `<input [(ngModel)]="date"
                     type="text">`,
   providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => CourseDurationInputComponent), multi: true }
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => CourseDateInputComponent), multi: true }
   ]
 })
-export class CourseDurationInputComponent implements ControlValueAccessor  {
-  _duration: string;
+export class CourseDateInputComponent implements ControlValueAccessor  {
+  _date: string;
   propagateChange: any = () => {};
 
-  get duration() {
-    return this._duration;
+  get date() {
+    return this._date;
   }
 
-  set duration(val: string) {
-    this._duration = val;
-    this.propagateChange(this.formatValue(val));
+  set date(val: string) {
+    this._date = val;
+    this.propagateChange(this.getFormattedDate(val));
   }
 
   writeValue(value) {
     if (value) {
-      this.duration = value;
+      this.date = `${value.getDate()}/${value.getMonth() + 1}/${value.getFullYear()}`;
     }
   }
 
@@ -34,8 +34,14 @@ export class CourseDurationInputComponent implements ControlValueAccessor  {
 
   registerOnTouched() {}
 
-  private formatValue(string: string): number {
-    const val = +string;
-    return isNaN(val) ? null : val;
+  private getFormattedDate(string: string): Date {
+    const pattern = /^(0?[1-9]|[12][0-9]|3[01])\/(0?[1-9]|1[012])\/(19|20)\d\d$/;
+
+    if (string.search(pattern) === - 1) {
+      return null;
+    } else {
+      const dateTokens = string.split('/');
+      return new Date(Date.UTC(+dateTokens[2], +dateTokens[1] - 1, +dateTokens[0]));
+    }
   }
 }

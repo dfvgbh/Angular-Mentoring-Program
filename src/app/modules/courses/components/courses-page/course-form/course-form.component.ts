@@ -2,9 +2,6 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { durationValidator } from './duration.validator';
-import { Router } from '@angular/router';
-
 @Component({
   selector: 'amp-course-form',
   templateUrl: './course-form.component.html',
@@ -21,8 +18,7 @@ export class CourseFormComponent implements OnInit, OnChanges {
   authorsList: string[] = [];
 
   constructor(private http: HttpClient,
-              private fb: FormBuilder,
-              private router: Router) {
+              private fb: FormBuilder) {
     this.createForm();
   }
 
@@ -37,13 +33,11 @@ export class CourseFormComponent implements OnInit, OnChanges {
   }
 
   onSave(): void {
-    this.save.emit();
-    console.log('Save!');
+    this.save.emit(this.courseForm.value);
   }
 
   onCancel(): void {
     this.cancel.emit();
-    this.router.navigate(['/courses']);
   }
 
   fetchAuthors() {
@@ -63,19 +57,19 @@ export class CourseFormComponent implements OnInit, OnChanges {
 
   private createForm() {
     this.courseForm = this.fb.group({
-      title: ['', [Validators.required, Validators.maxLength(50)] ],
+      name: ['', [Validators.required, Validators.maxLength(50)] ],
       description: ['', [Validators.required, Validators.maxLength(500)]],
-      date: [null, [Validators.required]],
-      duration: [0, [Validators.required, durationValidator]],
+      addedDate: [null, [Validators.required]],
+      duration: [0, [Validators.required]],
       authors: [[], Validators.required]
     });
   }
 
   private setForm(formValue) {
     this.courseForm.setValue({
-      title: formValue.name,
+      name: formValue.name,
       description: formValue.description,
-      date: formValue.addedDate,
+      addedDate: formValue.addedDate,
       duration: formValue.duration,
       authors: formValue.authors
     });

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AuthenticationService } from '../../../core/services';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'amp-header',
@@ -9,8 +10,10 @@ import { AuthenticationService } from '../../../core/services';
 })
 export class HeaderComponent implements OnInit {
   private userInfo: string;
+  breadcrumbs = [];
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(private authenticationService: AuthenticationService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -18,6 +21,14 @@ export class HeaderComponent implements OnInit {
       .subscribe(
         userInfo => this.userInfo = userInfo
       );
+
+    this.buildBreadscrumbs();
+
+    this.router.events.subscribe((evt) => {
+      if (evt instanceof NavigationEnd) {
+        this.buildBreadscrumbs();
+      }
+    });
   }
 
   logout(): void {
@@ -26,6 +37,16 @@ export class HeaderComponent implements OnInit {
 
   isAuthenticated(): boolean {
     return this.authenticationService.isAuthenticated();
+  }
+
+  private buildBreadscrumbs() {
+    this.breadcrumbs.length = 0;
+    const parts = this.router.url.split('/');
+    parts.shift();
+    parts.forEach(part => {
+      this.breadcrumbs.push({ name: part });
+    });
+    this.breadcrumbs[0].link = `/${parts[0]}`;
   }
 
 }

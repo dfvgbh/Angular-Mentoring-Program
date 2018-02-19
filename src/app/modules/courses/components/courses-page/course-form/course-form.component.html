@@ -5,19 +5,19 @@
     class="add-form">
 
     <div class="form-row">
-      <div class="form-row__title">Title</div>
+      <div class="form-row__title">Name</div>
       <div class="form-row__aside-right">
         <input
-          formControlName="title"
+          formControlName="name"
           class="full-width"
-          [ngClass]="{ 'error': isInputInvalid('title') }"
+          [ngClass]="{ 'error': isInputInvalid('name') }"
           type="text">
         <span
           class="error-msg"
-          *ngIf="hasInputError('title', 'required')">Please provide a title</span>
+          *ngIf="hasInputError('name', 'required')">Please provide a name</span>
         <span
           class="error-msg"
-          *ngIf="hasInputError('title', 'maxlength')">Title should be less than 50 symbols</span>
+          *ngIf="hasInputError('name', 'maxlength')">Name should be less than 50 symbols</span>
       </div>
     </div>
 
@@ -42,21 +42,21 @@
       <div class="form-row__title">Date</div>
       <div class="form-row__aside-right">
         <amp-course-date-input
-          formControlName="date"
+          formControlName="addedDate"
           class="full-width"
-          [ngClass]="{ 'error': isInputInvalid('date') }"></amp-course-date-input>
+          [ngClass]="{ 'error': isInputInvalid('addedDate') }"></amp-course-date-input>
         <span
           class="error-msg"
-          *ngIf="hasInputError('date', 'required')">Please specify date dd/mm/yyyy</span>
+          *ngIf="hasInputError('addedDate', 'required')">Please specify date dd/mm/yyyy</span>
       </div>
     </div>
     <div class="form-row">
       <div class="form-row__title">Duration</div>
       <div class="form-row__aside-right">
-        <amp-course-date-input
+        <amp-course-duration-input
           formControlName="duration"
           [ngClass]="{ 'error': isInputInvalid('duration') }"
-          type="text"></amp-course-date-input>
+          type="text"></amp-course-duration-input>
         <span>{{ courseForm.get('duration').value | duration }}</span>
         <span
           class="error-msg"

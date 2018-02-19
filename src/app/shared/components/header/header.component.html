@@ -6,7 +6,11 @@
       <div
         class="breadcrumbs"
         *ngIf="isAuthenticated()"
-      >...>...>...></div>
+      >
+        <span *ngFor="let bs of breadcrumbs; let last = last"><a [routerLink]="bs.link">{{ bs.name }}</a>
+          <span *ngIf="!last"> > </span>
+        </span>
+      </div>
     </div>
     <div
       class="account"

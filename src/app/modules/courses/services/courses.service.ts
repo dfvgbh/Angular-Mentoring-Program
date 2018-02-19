@@ -19,10 +19,6 @@ export class CoursesService {
 
   constructor(private http: HttpClient,
               private coursesConfigService: CoursesConfigService) {
-    this.coursesConfigService.getConfig$()
-      .subscribe(
-        () => this.reloadCourses()
-      );
   }
 
   getCourses$(): Observable<CoursesResponseParams> {

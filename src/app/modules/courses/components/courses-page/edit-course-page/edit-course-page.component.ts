@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { HttpClient } from '@angular/common/http';
 import { CourseItem } from '../../../models';
@@ -7,8 +7,9 @@ import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'amp-edit-course-page',
-  template: `
-    <amp-course-form [formValue]="currentCourse"></amp-course-form>`
+  template: `<amp-course-form [formValue]="currentCourse"
+                              (save)="doEditCourse($event)"
+                              (cancel)="navigateBack()"></amp-course-form>`
 })
 export class EditCoursePageComponent implements OnInit, OnDestroy {
   COURSES_URL = 'http://localhost:3000/courses';
@@ -24,7 +25,8 @@ export class EditCoursePageComponent implements OnInit, OnDestroy {
   };
 
   constructor(private http: HttpClient,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -32,6 +34,10 @@ export class EditCoursePageComponent implements OnInit, OnDestroy {
       this.fetchCourse(this.id)
         .subscribe(data => this.currentCourse = data);
     });
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
   fetchCourse(id: number): Observable<CourseItem>  {
@@ -42,7 +48,16 @@ export class EditCoursePageComponent implements OnInit, OnDestroy {
       }));
   }
 
-  ngOnDestroy() {
-    this.sub.unsubscribe();
+  doEditCourse(body: CourseItem) {
+    this.http.put(`${this.COURSES_URL}/${this.id}`, body)
+      .subscribe(
+        () => {},
+        err => console.error(err),
+        () => this.navigateBack()
+      );
+  }
+
+  navigateBack() {
+    this.router.navigate(['/courses']);
   }
 }
