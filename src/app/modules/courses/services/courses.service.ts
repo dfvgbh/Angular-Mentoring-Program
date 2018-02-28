@@ -2,32 +2,29 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 
 import { CoursesResponseParams } from '../models';
 import { CoursesConfigService } from './courses-config.service';
+import { AppState } from '../../../reducers/state.model';
+import { Store } from '@ngrx/store';
+import { SET_COURSES } from '../../../reducers/courses.reducer';
 
 @Injectable()
 export class CoursesService {
   COURSES_URL = 'http://localhost:3000/courses';
 
-  private courses$ = new BehaviorSubject<CoursesResponseParams>({
-    totalItems: 0,
-    content: []
-  });
-
   constructor(private http: HttpClient,
-              private coursesConfigService: CoursesConfigService) {
-  }
-
-  getCourses$(): Observable<CoursesResponseParams> {
-    return this.courses$.asObservable();
+              private coursesConfigService: CoursesConfigService,
+              private store: Store<AppState>) {
   }
 
   reloadCourses(): void {
     this.fetchCourses().subscribe(value => {
-      this.courses$.next(value);
+      this.store.dispatch({
+        type: SET_COURSES,
+        payload: { ...value }
+      });
     });
   }
 

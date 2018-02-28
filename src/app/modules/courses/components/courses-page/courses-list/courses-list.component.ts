@@ -8,6 +8,8 @@ import { CoursesService, CoursesConfigService } from '../../../services';
 import { DialogService } from '../../../../../core/services';
 import { DialogConfig } from '../../../../../core/models';
 import { CoursesRequestParams } from '../../../models/courses-request-params.model';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../../../reducers/state.model';
 
 @Component({
   selector: 'amp-courses-list',
@@ -32,15 +34,16 @@ export class CourseListComponent implements OnDestroy, OnInit {
 
   constructor(private coursesService: CoursesService,
               private coursesConfigService: CoursesConfigService,
-              private dialogService: DialogService) {
+              private dialogService: DialogService,
+              private store: Store<AppState>) {
   }
 
   ngOnInit() {
-    this.coursesService.getCourses$()
+    this.store.select('courses')
       .takeUntil(this.unsubscribe$)
-      .subscribe((data: CoursesResponseParams) => {
-        this.totalItems = data.totalItems;
-        this.courses = data.content;
+      .subscribe(state => {
+        this.totalItems = state.totalItems;
+        this.courses = state.content;
       });
 
     this.coursesConfigService.getConfig$()
@@ -50,7 +53,6 @@ export class CourseListComponent implements OnDestroy, OnInit {
         this.currentPage = config.page;
         this.pageSize = config.pageSize;
       });
-
   }
 
   ngOnDestroy() {

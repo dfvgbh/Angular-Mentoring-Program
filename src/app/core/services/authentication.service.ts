@@ -3,15 +3,22 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { LOGIN, LOGOUT } from '../../reducers/authentication.reducer';
+import { AppState } from '../../reducers/state.model';
 
 @Injectable()
 export class AuthenticationService {
-  private userInfoSubject: BehaviorSubject<string>;
   USERS_URL = 'http://localhost:3000/users';
 
   constructor(private http: HttpClient,
-              private router: Router) {
-    this.userInfoSubject = new BehaviorSubject(this.getUserInfo());
+              private router: Router,
+              private store: Store<AppState> ) {
+    this.store.select('authentication')
+      .subscribe(state => {
+        localStorage.setItem('username', state.username);
+        localStorage.setItem('token', state.token);
+      });
   }
 
   login(login: string, password: string): void {
@@ -27,9 +34,10 @@ export class AuthenticationService {
     this.http.post(`${this.USERS_URL}/login`, body)
       .subscribe(
         (data: any) => {
-          localStorage.setItem('username', data.username);
-          localStorage.setItem('token', data.token);
-          this.broadcastUserInfo();
+          this.store.dispatch({
+            type: LOGIN,
+            payload: { ...data }
+          });
           this.router.navigate(['/courses']);
         },
         (err) => console.log(err)
@@ -42,9 +50,7 @@ export class AuthenticationService {
     this.http.post(`${this.USERS_URL}/logout`, null, { responseType: 'text'})
       .subscribe(
         (data: any) => {
-          localStorage.removeItem('username');
-          localStorage.removeItem('token');
-          this.broadcastUserInfo();
+          this.store.dispatch({ type: LOGOUT });
           this.router.navigate(['/auth']);
         },
         (err) => console.log(err)
@@ -56,20 +62,8 @@ export class AuthenticationService {
       localStorage.getItem('token'));
   }
 
-  getUserInfo$(): Observable<string> {
-    return this.userInfoSubject.asObservable();
-  }
-
   getToken(): string {
     return localStorage.getItem('token');
-  }
-
-  private broadcastUserInfo() {
-    this.userInfoSubject.next(this.getUserInfo());
-  }
-
-  private getUserInfo(): string {
-    return localStorage.getItem('username');
   }
 
   private log(msg: string): void {

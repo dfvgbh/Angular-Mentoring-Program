@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { AuthenticationService } from '../../../core/services';
 import { NavigationEnd, Router } from '@angular/router';
+import { AppState } from '../../../reducers/state.model';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'amp-header',
@@ -13,13 +15,14 @@ export class HeaderComponent implements OnInit {
   breadcrumbs = [];
 
   constructor(private authenticationService: AuthenticationService,
-              private router: Router) {
+              private router: Router,
+              private store: Store<AppState>) {
   }
 
   ngOnInit() {
-    this.authenticationService.getUserInfo$()
+    this.store.select('authentication')
       .subscribe(
-        userInfo => this.userInfo = userInfo
+        state => this.userInfo = state.username
       );
 
     this.buildBreadscrumbs();
